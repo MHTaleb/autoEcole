@@ -1,0 +1,71 @@
+enum Nationalite {
+	ALGERIENNE,
+    AUTRE
+}
+
+entity Lesson {
+	typeLesson TypeLesson required
+    dateLesson LocalDate required
+}
+
+enum TypeLesson{
+	CODE,
+    CRENO,
+    CIRCULATION,
+	AUTRE
+}
+
+entity Entraineur {
+	photo ImageBlob
+	nom String required
+	prenom String required
+    telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
+}
+
+entity Candidat{
+	photo ImageBlob
+	nom String required
+	prenom String required
+	pere String required
+	mere String required
+	telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
+    dateInscription LocalDate required
+    dateNaissance LocalDate required
+    lieuNaissance String  required
+	nationalite Nationalite required
+    adresse String required
+}
+
+entity Virement{
+	montant Double required
+    dateVirement LocalDate required
+}
+
+entity Examinateur{
+	nom String required
+	prenom String required
+    telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)  
+}
+
+entity Examen{
+	dateExamen LocalDate required
+}
+
+relationship OneToOne {
+    Entraineur{account} to User 
+	
+}
+
+relationship OneToMany{
+	Entraineur to Lesson{entraineur(nom)}
+    Candidat to Lesson{eleve(nom)}
+    Examinateur to Examen{examinateur(nom)}
+}
+
+relationship ManyToOne{
+	Virement to Candidat{virement}
+}
+
+relationship ManyToMany {
+	Examen{candidat(nom)} to Candidat{examen}
+}
