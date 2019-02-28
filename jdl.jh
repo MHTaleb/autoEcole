@@ -1,11 +1,14 @@
 enum Nationalite {
-	ALGERIENNE,
+	ALGERIE,
+	MARROC,
+	TUNISIE,
+	FRANCE,
     AUTRE
 }
 
-entity Lesson {
-	typeLesson TypeLesson required
-    dateLesson LocalDate required
+entity Ecole{
+	nomEcole String required,
+    president String required
 }
 
 enum TypeLesson{
@@ -15,57 +18,89 @@ enum TypeLesson{
 	AUTRE
 }
 
+entity Lesson {
+	typeLesson TypeLesson required,
+    dateLesson LocalDate required
+}
+
+entity Car{
+	matricule String,
+    marque String
+}
+
+
+
 entity Entraineur {
-	photo ImageBlob
-	nom String required
-	prenom String required
-    telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
+	photo ImageBlob,
+	nom String required,
+	prenom String required,
+    telephone String required 
 }
 
 entity Candidat{
-	photo ImageBlob
-	nom String required
-	prenom String required
-	pere String required
-	mere String required
-	telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
-    dateInscription LocalDate required
-    dateNaissance LocalDate required
-    lieuNaissance String  required
-	nationalite Nationalite required
+	photo ImageBlob,
+	nom String required,
+	prenom String required,
+	pere String required,
+	mere String required,
+	telephone String required ,
+    dateInscription LocalDate required,
+    dateNaissance LocalDate required,
+    lieuNaissance String  required,
+	nationalite Nationalite required,
     adresse String required
 }
 
 entity Virement{
-	montant Double required
+	montant Double required,
     dateVirement LocalDate required
 }
 
 entity Examinateur{
-	nom String required
-	prenom String required
-    telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)  
+	nom String required,
+	prenom String required,
+    telephone String    
 }
 
 entity Examen{
 	dateExamen LocalDate required
 }
 
+enum TypeExamen{
+	CODE,
+    CRENO,
+    CIRCULATION
+}
+
+entity ExamenInfo{
+	etat EtatExamen,
+    type TypeExamen
+}
+
+enum EtatExamen{
+	ENCOURS,
+    REUSSI,
+    PERDU,
+    ABSENT,
+	INVALIDE
+}
+
 relationship OneToOne {
-    Entraineur{account} to User 
-	
+	Entraineur{compte(username)} to User
 }
 
 relationship OneToMany{
-	Entraineur to Lesson{entraineur(nom)}
-    Candidat to Lesson{eleve(nom)}
-    Examinateur to Examen{examinateur(nom)}
+	Examen to ExamenInfo{examen required},
+    Examen{voiture} to Car,
+    Candidat to ExamenInfo{candidat required},
+    Candidat to Virement{candidat required},
+    Candidat to Lesson{candidat required},
+    Car to Lesson{voiture},
+    Entraineur to Lesson{entraineur required},
+    Examinateur to Examen{examinateur required}
 }
 
-relationship ManyToOne{
-	Virement to Candidat{virement}
-}
+service * with serviceImpl
 
-relationship ManyToMany {
-	Examen{candidat(nom)} to Candidat{examen}
-}
+dto * with mapstruct
+paginate * with pagination
