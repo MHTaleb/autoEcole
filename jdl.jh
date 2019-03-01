@@ -5,10 +5,19 @@ enum Nationalite {
 	FRANCE,
     AUTRE
 }
-
 entity Ecole{
-	nomEcole String required,
+	nomEcole String required
     president String required
+}
+
+entity Lesson {
+	typeLesson TypeLesson required
+    dateLesson LocalDate required
+}
+
+entity Car{
+	matricule String
+    marque String
 }
 
 enum TypeLesson{
@@ -18,48 +27,36 @@ enum TypeLesson{
 	AUTRE
 }
 
-entity Lesson {
-	typeLesson TypeLesson required,
-    dateLesson LocalDate required
-}
-
-entity Car{
-	matricule String,
-    marque String
-}
-
-
-
 entity Entraineur {
-	photo ImageBlob,
-	nom String required,
-	prenom String required,
-    telephone String required 
+	photo ImageBlob
+	nom String required
+	prenom String required
+    telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
 }
 
 entity Candidat{
-	photo ImageBlob,
-	nom String required,
-	prenom String required,
-	pere String required,
-	mere String required,
-	telephone String required ,
-    dateInscription LocalDate required,
-    dateNaissance LocalDate required,
-    lieuNaissance String  required,
-	nationalite Nationalite required,
+	photo ImageBlob
+	nom String required
+	prenom String required
+	pere String required
+	mere String required
+	telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
+    dateInscription LocalDate required
+    dateNaissance LocalDate required
+    lieuNaissance String  required
+	nationalite Nationalite required
     adresse String required
 }
 
 entity Virement{
-	montant Double required,
+	montant Double required
     dateVirement LocalDate required
 }
 
 entity Examinateur{
-	nom String required,
-	prenom String required,
-    telephone String    
+	nom String required
+	prenom String required
+    telephone String  pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)  
 }
 
 entity Examen{
@@ -73,7 +70,7 @@ enum TypeExamen{
 }
 
 entity ExamenInfo{
-	etat EtatExamen,
+	etat EtatExamen
     type TypeExamen
 }
 
@@ -90,13 +87,13 @@ relationship OneToOne {
 }
 
 relationship OneToMany{
-	Examen to ExamenInfo{examen required},
-    Examen{voiture} to Car,
-    Candidat to ExamenInfo{candidat required},
-    Candidat to Virement{candidat required},
-    Candidat to Lesson{candidat required},
-    Car to Lesson{voiture},
-    Entraineur to Lesson{entraineur required},
+	Examen to ExamenInfo{examen required}
+    Examen{voiture} to Car
+    Candidat to ExamenInfo{candidat required}
+    Candidat to Virement{candidat required}
+    Candidat to Lesson{candidat required}
+    Car to Lesson{voiture}
+    Entraineur to Lesson{entraineur required}
     Examinateur to Examen{examinateur required}
 }
 
