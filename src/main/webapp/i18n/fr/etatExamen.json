@@ -1,0 +1,12 @@
+{
+    "autoEcoleApp": {
+        "EtatExamen": {
+            "null": "",
+            "ENCOURS": "ENCOURS",
+            "REUSSI": "REUSSI",
+            "PERDU": "PERDU",
+            "ABSENT": "ABSENT",
+            "INVALIDE": "INVALIDE"
+        }
+    }
+}

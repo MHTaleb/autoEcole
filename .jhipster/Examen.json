@@ -1,0 +1,44 @@
+{
+    "name": "Examen",
+    "fields": [
+        {
+            "fieldName": "dateExamen",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "examenInfo",
+            "otherEntityName": "examenInfo",
+            "otherEntityRelationshipName": "examen"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "voiture",
+            "otherEntityName": "car",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "car"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "examinateur",
+            "otherEntityName": "examinateur",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "examinateur"
+        }
+    ],
+    "changelogDate": "20190301202317",
+    "entityTableName": "examen",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

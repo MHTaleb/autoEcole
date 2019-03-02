@@ -1,0 +1,54 @@
+{
+    "name": "Lesson",
+    "fields": [
+        {
+            "fieldName": "typeLesson",
+            "fieldType": "TypeLesson",
+            "fieldValues": "CODE,CRENO,CIRCULATION,AUTRE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dateLesson",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "candidat",
+            "otherEntityName": "candidat",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "candidat"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "voiture",
+            "otherEntityName": "car",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "car"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "entraineur",
+            "otherEntityName": "entraineur",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "entraineur"
+        }
+    ],
+    "changelogDate": "20190301202311",
+    "entityTableName": "lesson",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

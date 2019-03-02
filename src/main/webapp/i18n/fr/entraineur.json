@@ -1,0 +1,27 @@
+{
+    "autoEcoleApp": {
+        "entraineur": {
+            "home": {
+                "title": "Entraineurs",
+                "createLabel": "Créer un nouveau Entraineur",
+                "createOrEditLabel": "Créer ou éditer un Entraineur",
+                "search": "Recherche pour Entraineur"
+            },
+            "created": "Un nouveau Entraineur a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Entraineur avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Entraineur avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Entraineur {{ id }} ?"
+            },
+            "detail": {
+                "title": "Entraineur"
+            },
+            "photo": "Photo",
+            "nom": "Nom",
+            "prenom": "Prenom",
+            "telephone": "Telephone",
+            "compte": "Compte",
+            "lesson": "Lesson"
+        }
+    }
+}

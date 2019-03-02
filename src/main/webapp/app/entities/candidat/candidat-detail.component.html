@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="candidat">
+            <h2><span jhiTranslate="autoEcoleApp.candidat.detail.title">Candidat</span> {{candidat.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="autoEcoleApp.candidat.photo">Photo</span></dt>
+                <dd>
+                    <div *ngIf="candidat.photo">
+                        <a (click)="openFile(candidat.photoContentType, candidat.photo)">
+                            <img [src]="'data:' + candidat.photoContentType + ';base64,' + candidat.photo" style="max-width: 100%;" alt="candidat image"/>
+                        </a>
+                        {{candidat.photoContentType}}, {{byteSize(candidat.photo)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.nom">Nom</span></dt>
+                <dd>
+                    <span>{{candidat.nom}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.prenom">Prenom</span></dt>
+                <dd>
+                    <span>{{candidat.prenom}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.pere">Pere</span></dt>
+                <dd>
+                    <span>{{candidat.pere}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.mere">Mere</span></dt>
+                <dd>
+                    <span>{{candidat.mere}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.telephone">Telephone</span></dt>
+                <dd>
+                    <span>{{candidat.telephone}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.dateInscription">Date Inscription</span></dt>
+                <dd>
+                    <span>{{candidat.dateInscription}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.dateNaissance">Date Naissance</span></dt>
+                <dd>
+                    <span>{{candidat.dateNaissance}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.lieuNaissance">Lieu Naissance</span></dt>
+                <dd>
+                    <span>{{candidat.lieuNaissance}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.nationalite">Nationalite</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'autoEcoleApp.Nationalite.' + candidat.nationalite}}">{{candidat.nationalite}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.candidat.adresse">Adresse</span></dt>
+                <dd>
+                    <span>{{candidat.adresse}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/candidat', candidat.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="win 10 (generated)" id="1551487053966-1">
+        <dropDefaultValue columnDataType="varchar(20)" columnName="activation_key" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-2">
+        <dropDefaultValue columnDataType="varchar(254)" columnName="email" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-3">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="etat" tableName="examen_info"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-4">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="event_type" tableName="jhi_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-5">
+        <dropDefaultValue columnDataType="varchar(50)" columnName="first_name" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-6">
+        <dropDefaultValue columnDataType="varchar(256)" columnName="image_url" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-7">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="jhi_type" tableName="examen_info"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-8">
+        <dropDefaultValue columnDataType="varchar(6)" columnName="lang_key" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-9">
+        <dropDefaultValue columnDataType="varchar(50)" columnName="last_modified_by" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-10">
+        <dropDefaultValue columnDataType="varchar(50)" columnName="last_name" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-11">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="marque" tableName="car"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-12">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="matricule" tableName="car"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-13">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="photo_content_type" tableName="candidat"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-14">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="photo_content_type" tableName="entraineur"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-15">
+        <dropDefaultValue columnDataType="varchar(20)" columnName="reset_key" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-16">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="telephone" tableName="examinateur"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551487053966-17">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="value" tableName="jhi_persistent_audit_evt_data"/>
+    </changeSet>
+</databaseChangeLog>

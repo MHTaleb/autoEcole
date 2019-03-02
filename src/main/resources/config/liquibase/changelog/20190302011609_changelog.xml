@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="win 10 (generated)" id="1551489415976-1">
+        <addColumn tableName="examen">
+            <column name="voiture_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551489415976-2">
+        <addForeignKeyConstraint baseColumnNames="voiture_id" baseTableName="examen" constraintName="FKkng9ry44h0meigyk8mw784yq4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551489415976-3">
+        <dropForeignKeyConstraint baseTableName="car" constraintName="fk_car_examen_id"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1551489415976-4">
+        <dropColumn columnName="examen_id" tableName="car"/>
+    </changeSet>
+</databaseChangeLog>

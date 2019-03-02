@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="examen">
+            <h2><span jhiTranslate="autoEcoleApp.examen.detail.title">Examen</span> {{examen.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="autoEcoleApp.examen.dateExamen">Date Examen</span></dt>
+                <dd>
+                    <span>{{examen.dateExamen}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.examen.voiture">Voiture</span></dt>
+                <dd>
+                    <div *ngIf="examen.voitureId">
+                        <a [routerLink]="['/car', examen.voitureId, 'view']">{{examen.voitureId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.examen.examinateur">Examinateur</span></dt>
+                <dd>
+                    <div *ngIf="examen.examinateurId">
+                        <a [routerLink]="['/examinateur', examen.examinateurId, 'view']">{{examen.examinateurId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/examen', examen.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

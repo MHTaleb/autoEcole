@@ -7,6 +7,15 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "الكيانات",
+                "ecole": "Ecole",
+                "lesson": "Lesson",
+                "car": "Car",
+                "entraineur": "Entraineur",
+                "candidat": "Candidat",
+                "virement": "Virement",
+                "examinateur": "Examinateur",
+                "examen": "Examen",
+                "examenInfo": "Examen Info",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

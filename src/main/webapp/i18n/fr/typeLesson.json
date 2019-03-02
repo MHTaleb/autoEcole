@@ -1,0 +1,11 @@
+{
+    "autoEcoleApp": {
+        "TypeLesson": {
+            "null": "",
+            "CODE": "CODE",
+            "CRENO": "CRENO",
+            "CIRCULATION": "CIRCULATION",
+            "AUTRE": "AUTRE"
+        }
+    }
+}

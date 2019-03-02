@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-examen-info-heading" jhiTranslate="autoEcoleApp.examenInfo.home.createOrEditLabel">Create or edit a Examen Info</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!examenInfo.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="examenInfo.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.examenInfo.etat" for="field_etat">Etat</label>
+                    <select class="form-control" name="etat" [(ngModel)]="examenInfo.etat" id="field_etat" >
+                        <option value="ENCOURS">{{'autoEcoleApp.EtatExamen.ENCOURS' | translate}}</option>
+                        <option value="REUSSI">{{'autoEcoleApp.EtatExamen.REUSSI' | translate}}</option>
+                        <option value="PERDU">{{'autoEcoleApp.EtatExamen.PERDU' | translate}}</option>
+                        <option value="ABSENT">{{'autoEcoleApp.EtatExamen.ABSENT' | translate}}</option>
+                        <option value="INVALIDE">{{'autoEcoleApp.EtatExamen.INVALIDE' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.examenInfo.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="examenInfo.type" id="field_type" >
+                        <option value="CODE">{{'autoEcoleApp.TypeExamen.CODE' | translate}}</option>
+                        <option value="CRENO">{{'autoEcoleApp.TypeExamen.CRENO' | translate}}</option>
+                        <option value="CIRCULATION">{{'autoEcoleApp.TypeExamen.CIRCULATION' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.examenInfo.examen" for="field_examen">Examen</label>
+                    <select class="form-control" id="field_examen" name="examen" [(ngModel)]="examenInfo.examenId"  required>
+                        <option *ngIf="!editForm.value.examen" [ngValue]="null" selected></option>
+                        <option [ngValue]="examenOption.id" *ngFor="let examenOption of examen; trackBy: trackExamenById">{{examenOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.examen?.dirty && editForm.controls.examen?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.examen?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.examenInfo.candidat" for="field_candidat">Candidat</label>
+                    <select class="form-control" id="field_candidat" name="candidat" [(ngModel)]="examenInfo.candidatId"  required>
+                        <option *ngIf="!editForm.value.candidat" [ngValue]="null" selected></option>
+                        <option [ngValue]="candidatOption.id" *ngFor="let candidatOption of candidats; trackBy: trackCandidatById">{{candidatOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.candidat?.dirty && editForm.controls.candidat?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.candidat?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

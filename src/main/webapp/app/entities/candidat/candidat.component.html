@@ -1,0 +1,102 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="autoEcoleApp.candidat.home.title">Candidats</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-candidat" [routerLink]="['/candidat/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="autoEcoleApp.candidat.home.createLabel">
+            Create new Candidat
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'autoEcoleApp.candidat.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="candidats">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="photo"><span jhiTranslate="autoEcoleApp.candidat.photo">Photo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nom"><span jhiTranslate="autoEcoleApp.candidat.nom">Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="prenom"><span jhiTranslate="autoEcoleApp.candidat.prenom">Prenom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pere"><span jhiTranslate="autoEcoleApp.candidat.pere">Pere</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mere"><span jhiTranslate="autoEcoleApp.candidat.mere">Mere</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="telephone"><span jhiTranslate="autoEcoleApp.candidat.telephone">Telephone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateInscription"><span jhiTranslate="autoEcoleApp.candidat.dateInscription">Date Inscription</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateNaissance"><span jhiTranslate="autoEcoleApp.candidat.dateNaissance">Date Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lieuNaissance"><span jhiTranslate="autoEcoleApp.candidat.lieuNaissance">Lieu Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nationalite"><span jhiTranslate="autoEcoleApp.candidat.nationalite">Nationalite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="adresse"><span jhiTranslate="autoEcoleApp.candidat.adresse">Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let candidat of candidats ;trackBy: trackId">
+                <td><a [routerLink]="['/candidat', candidat.id, 'view' ]">{{candidat.id}}</a></td>
+                <td>
+                    <a *ngIf="candidat.photo" (click)="openFile(candidat.photoContentType, candidat.photo)">
+                        <img [src]="'data:' + candidat.photoContentType + ';base64,' + candidat.photo" style="max-height: 30px;" alt="candidat image"/>
+                    </a>
+                    <span *ngIf="candidat.photo">{{candidat.photoContentType}}, {{byteSize(candidat.photo)}}</span>
+                </td>
+                <td>{{candidat.nom}}</td>
+                <td>{{candidat.prenom}}</td>
+                <td>{{candidat.pere}}</td>
+                <td>{{candidat.mere}}</td>
+                <td>{{candidat.telephone}}</td>
+                <td>{{candidat.dateInscription | date:'mediumDate'}}</td>
+                <td>{{candidat.dateNaissance | date:'mediumDate'}}</td>
+                <td>{{candidat.lieuNaissance}}</td>
+                <td jhiTranslate="{{'autoEcoleApp.Nationalite.' + candidat.nationalite}}">{{candidat.nationalite}}</td>
+                <td>{{candidat.adresse}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/candidat', candidat.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/candidat', candidat.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'candidat', { outlets: { popup: candidat.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="candidats && candidats.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

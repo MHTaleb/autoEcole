@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-virement-heading" jhiTranslate="autoEcoleApp.virement.home.createOrEditLabel">Create or edit a Virement</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!virement.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="virement.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.virement.montant" for="field_montant">Montant</label>
+                    <input type="number" class="form-control" name="montant" id="field_montant"
+                        [(ngModel)]="virement.montant" required/>
+                    <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.montant?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.montant?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.virement.dateVirement" for="field_dateVirement">Date Virement</label>
+                    <div class="input-group">
+                        <input id="field_dateVirement" type="text" class="form-control" name="dateVirement" ngbDatepicker  #dateVirementDp="ngbDatepicker" [(ngModel)]="virement.dateVirement"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateVirementDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dateVirement?.dirty && editForm.controls.dateVirement?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateVirement?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.virement.candidat" for="field_candidat">Candidat</label>
+                    <select class="form-control" id="field_candidat" name="candidat" [(ngModel)]="virement.candidatId"  required>
+                        <option *ngIf="!editForm.value.candidat" [ngValue]="null" selected></option>
+                        <option [ngValue]="candidatOption.id" *ngFor="let candidatOption of candidats; trackBy: trackCandidatById">{{candidatOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.candidat?.dirty && editForm.controls.candidat?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.candidat?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

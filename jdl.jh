@@ -83,12 +83,12 @@ enum EtatExamen{
 }
 
 relationship OneToOne {
-	Entraineur{compte(username)} to User
+	Entraineur{compte(login)} to User
 }
 
 relationship OneToMany{
 	Examen to ExamenInfo{examen required}
-    Examen{voiture} to Car
+    Car to Examen{voiture}
     Candidat to ExamenInfo{candidat required}
     Candidat to Virement{candidat required}
     Candidat to Lesson{candidat required}

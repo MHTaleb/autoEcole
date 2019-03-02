@@ -1,0 +1,88 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-lesson-heading" jhiTranslate="autoEcoleApp.lesson.home.createOrEditLabel">Create or edit a Lesson</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!lesson.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="lesson.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.typeLesson" for="field_typeLesson">Type Lesson</label>
+                    <select class="form-control" name="typeLesson" [(ngModel)]="lesson.typeLesson" id="field_typeLesson"  required>
+                        <option value="CODE">{{'autoEcoleApp.TypeLesson.CODE' | translate}}</option>
+                        <option value="CRENO">{{'autoEcoleApp.TypeLesson.CRENO' | translate}}</option>
+                        <option value="CIRCULATION">{{'autoEcoleApp.TypeLesson.CIRCULATION' | translate}}</option>
+                        <option value="AUTRE">{{'autoEcoleApp.TypeLesson.AUTRE' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.typeLesson?.dirty && editForm.controls.typeLesson?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.typeLesson?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.dateLesson" for="field_dateLesson">Date Lesson</label>
+                    <div class="input-group">
+                        <input id="field_dateLesson" type="text" class="form-control" name="dateLesson" ngbDatepicker  #dateLessonDp="ngbDatepicker" [(ngModel)]="lesson.dateLesson"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateLessonDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dateLesson?.dirty && editForm.controls.dateLesson?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateLesson?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.candidat" for="field_candidat">Candidat</label>
+                    <select class="form-control" id="field_candidat" name="candidat" [(ngModel)]="lesson.candidatId"  required>
+                        <option *ngIf="!editForm.value.candidat" [ngValue]="null" selected></option>
+                        <option [ngValue]="candidatOption.id" *ngFor="let candidatOption of candidats; trackBy: trackCandidatById">{{candidatOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.candidat?.dirty && editForm.controls.candidat?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.candidat?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.voiture" for="field_voiture">Voiture</label>
+                    <select class="form-control" id="field_voiture" name="voiture" [(ngModel)]="lesson.voitureId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="carOption.id" *ngFor="let carOption of cars; trackBy: trackCarById">{{carOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.entraineur" for="field_entraineur">Entraineur</label>
+                    <select class="form-control" id="field_entraineur" name="entraineur" [(ngModel)]="lesson.entraineurId"  required>
+                        <option *ngIf="!editForm.value.entraineur" [ngValue]="null" selected></option>
+                        <option [ngValue]="entraineurOption.id" *ngFor="let entraineurOption of entraineurs; trackBy: trackEntraineurById">{{entraineurOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.entraineur?.dirty && editForm.controls.entraineur?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.entraineur?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
