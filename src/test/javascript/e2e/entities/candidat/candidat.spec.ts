@@ -54,7 +54,8 @@ describe('Candidat e2e test', () => {
             candidatUpdatePage.setDateNaissanceInput('2000-12-31'),
             candidatUpdatePage.setLieuNaissanceInput('lieuNaissance'),
             candidatUpdatePage.nationaliteSelectLastOption(),
-            candidatUpdatePage.setAdresseInput('adresse')
+            candidatUpdatePage.setAdresseInput('adresse'),
+            candidatUpdatePage.setNidInput('nid')
         ]);
         expect(await candidatUpdatePage.getPhotoInput()).to.endsWith(fileNameToUpload);
         expect(await candidatUpdatePage.getNomInput()).to.eq('nom');
@@ -66,6 +67,7 @@ describe('Candidat e2e test', () => {
         expect(await candidatUpdatePage.getDateNaissanceInput()).to.eq('2000-12-31');
         expect(await candidatUpdatePage.getLieuNaissanceInput()).to.eq('lieuNaissance');
         expect(await candidatUpdatePage.getAdresseInput()).to.eq('adresse');
+        expect(await candidatUpdatePage.getNidInput()).to.eq('nid');
         await candidatUpdatePage.save();
         expect(await candidatUpdatePage.getSaveButton().isPresent()).to.be.false;
 

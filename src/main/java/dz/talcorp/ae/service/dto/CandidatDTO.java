@@ -48,6 +48,10 @@ public class CandidatDTO implements Serializable {
     @NotNull
     private String adresse;
 
+    @NotNull
+    @Size(min = 4)
+    private String nid;
+
 
     public Long getId() {
         return id;
@@ -153,6 +157,14 @@ public class CandidatDTO implements Serializable {
         this.adresse = adresse;
     }
 
+    public String getNid() {
+        return nid;
+    }
+
+    public void setNid(String nid) {
+        this.nid = nid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -189,6 +201,7 @@ public class CandidatDTO implements Serializable {
             ", lieuNaissance='" + getLieuNaissance() + "'" +
             ", nationalite='" + getNationalite() + "'" +
             ", adresse='" + getAdresse() + "'" +
+            ", nid='" + getNid() + "'" +
             "}";
     }
 }

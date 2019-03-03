@@ -25,6 +25,7 @@ export interface ICandidat {
     lieuNaissance?: string;
     nationalite?: Nationalite;
     adresse?: string;
+    nid?: string;
     examenInfos?: IExamenInfo[];
     virements?: IVirement[];
     lessons?: ILesson[];
@@ -45,6 +46,7 @@ export class Candidat implements ICandidat {
         public lieuNaissance?: string,
         public nationalite?: Nationalite,
         public adresse?: string,
+        public nid?: string,
         public examenInfos?: IExamenInfo[],
         public virements?: IVirement[],
         public lessons?: ILesson[]

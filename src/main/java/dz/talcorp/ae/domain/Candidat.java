@@ -81,6 +81,11 @@ public class Candidat implements Serializable {
     @Column(name = "adresse", nullable = false)
     private String adresse;
 
+    @NotNull
+    @Size(min = 4)
+    @Column(name = "nid", nullable = false, unique = true)
+    private String nid;
+
     @OneToMany(mappedBy = "candidat")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ExamenInfo> examenInfos = new HashSet<>();
@@ -255,6 +260,19 @@ public class Candidat implements Serializable {
         this.adresse = adresse;
     }
 
+    public String getNid() {
+        return nid;
+    }
+
+    public Candidat nid(String nid) {
+        this.nid = nid;
+        return this;
+    }
+
+    public void setNid(String nid) {
+        this.nid = nid;
+    }
+
     public Set<ExamenInfo> getExamenInfos() {
         return examenInfos;
     }
@@ -367,6 +385,7 @@ public class Candidat implements Serializable {
             ", lieuNaissance='" + getLieuNaissance() + "'" +
             ", nationalite='" + getNationalite() + "'" +
             ", adresse='" + getAdresse() + "'" +
+            ", nid='" + getNid() + "'" +
             "}";
     }
 }

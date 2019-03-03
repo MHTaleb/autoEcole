@@ -88,6 +88,9 @@ public class CandidatResourceIntTest {
     private static final String DEFAULT_ADRESSE = "AAAAAAAAAA";
     private static final String UPDATED_ADRESSE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NID = "AAAAAAAAAA";
+    private static final String UPDATED_NID = "BBBBBBBBBB";
+
     @Autowired
     private CandidatRepository candidatRepository;
 
@@ -155,7 +158,8 @@ public class CandidatResourceIntTest {
             .dateNaissance(DEFAULT_DATE_NAISSANCE)
             .lieuNaissance(DEFAULT_LIEU_NAISSANCE)
             .nationalite(DEFAULT_NATIONALITE)
-            .adresse(DEFAULT_ADRESSE);
+            .adresse(DEFAULT_ADRESSE)
+            .nid(DEFAULT_NID);
         return candidat;
     }
 
@@ -192,6 +196,7 @@ public class CandidatResourceIntTest {
         assertThat(testCandidat.getLieuNaissance()).isEqualTo(DEFAULT_LIEU_NAISSANCE);
         assertThat(testCandidat.getNationalite()).isEqualTo(DEFAULT_NATIONALITE);
         assertThat(testCandidat.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
+        assertThat(testCandidat.getNid()).isEqualTo(DEFAULT_NID);
 
         // Validate the Candidat in Elasticsearch
         verify(mockCandidatSearchRepository, times(1)).save(testCandidat);
@@ -412,6 +417,25 @@ public class CandidatResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNidIsRequired() throws Exception {
+        int databaseSizeBeforeTest = candidatRepository.findAll().size();
+        // set the field null
+        candidat.setNid(null);
+
+        // Create the Candidat, which fails.
+        CandidatDTO candidatDTO = candidatMapper.toDto(candidat);
+
+        restCandidatMockMvc.perform(post("/api/candidats")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(candidatDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Candidat> candidatList = candidatRepository.findAll();
+        assertThat(candidatList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCandidats() throws Exception {
         // Initialize the database
         candidatRepository.saveAndFlush(candidat);
@@ -432,7 +456,8 @@ public class CandidatResourceIntTest {
             .andExpect(jsonPath("$.[*].dateNaissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
             .andExpect(jsonPath("$.[*].lieuNaissance").value(hasItem(DEFAULT_LIEU_NAISSANCE.toString())))
             .andExpect(jsonPath("$.[*].nationalite").value(hasItem(DEFAULT_NATIONALITE.toString())))
-            .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE.toString())));
+            .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE.toString())))
+            .andExpect(jsonPath("$.[*].nid").value(hasItem(DEFAULT_NID.toString())));
     }
     
     @Test
@@ -457,7 +482,8 @@ public class CandidatResourceIntTest {
             .andExpect(jsonPath("$.dateNaissance").value(DEFAULT_DATE_NAISSANCE.toString()))
             .andExpect(jsonPath("$.lieuNaissance").value(DEFAULT_LIEU_NAISSANCE.toString()))
             .andExpect(jsonPath("$.nationalite").value(DEFAULT_NATIONALITE.toString()))
-            .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE.toString()));
+            .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE.toString()))
+            .andExpect(jsonPath("$.nid").value(DEFAULT_NID.toString()));
     }
 
     @Test
@@ -492,7 +518,8 @@ public class CandidatResourceIntTest {
             .dateNaissance(UPDATED_DATE_NAISSANCE)
             .lieuNaissance(UPDATED_LIEU_NAISSANCE)
             .nationalite(UPDATED_NATIONALITE)
-            .adresse(UPDATED_ADRESSE);
+            .adresse(UPDATED_ADRESSE)
+            .nid(UPDATED_NID);
         CandidatDTO candidatDTO = candidatMapper.toDto(updatedCandidat);
 
         restCandidatMockMvc.perform(put("/api/candidats")
@@ -516,6 +543,7 @@ public class CandidatResourceIntTest {
         assertThat(testCandidat.getLieuNaissance()).isEqualTo(UPDATED_LIEU_NAISSANCE);
         assertThat(testCandidat.getNationalite()).isEqualTo(UPDATED_NATIONALITE);
         assertThat(testCandidat.getAdresse()).isEqualTo(UPDATED_ADRESSE);
+        assertThat(testCandidat.getNid()).isEqualTo(UPDATED_NID);
 
         // Validate the Candidat in Elasticsearch
         verify(mockCandidatSearchRepository, times(1)).save(testCandidat);
@@ -587,7 +615,8 @@ public class CandidatResourceIntTest {
             .andExpect(jsonPath("$.[*].dateNaissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
             .andExpect(jsonPath("$.[*].lieuNaissance").value(hasItem(DEFAULT_LIEU_NAISSANCE)))
             .andExpect(jsonPath("$.[*].nationalite").value(hasItem(DEFAULT_NATIONALITE.toString())))
-            .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE)));
+            .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE)))
+            .andExpect(jsonPath("$.[*].nid").value(hasItem(DEFAULT_NID)));
     }
 
     @Test

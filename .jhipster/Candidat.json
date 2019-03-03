@@ -1,5 +1,29 @@
 {
-    "name": "Candidat",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "examenInfo",
+            "otherEntityName": "examenInfo",
+            "otherEntityRelationshipName": "candidat",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "virement",
+            "otherEntityName": "virement",
+            "otherEntityRelationshipName": "candidat",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lesson",
+            "otherEntityName": "lesson",
+            "otherEntityRelationshipName": "candidat",
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
     "fields": [
         {
             "fieldName": "photo",
@@ -78,35 +102,24 @@
             "fieldValidateRules": [
                 "required"
             ]
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "examenInfo",
-            "otherEntityName": "examenInfo",
-            "otherEntityRelationshipName": "candidat"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "virement",
-            "otherEntityName": "virement",
-            "otherEntityRelationshipName": "candidat"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "lesson",
-            "otherEntityName": "lesson",
-            "otherEntityRelationshipName": "candidat"
+            "fieldName": "nid",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "unique",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": "4"
         }
     ],
     "changelogDate": "20190301202314",
-    "entityTableName": "candidat",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": "elasticsearch",
     "service": "serviceImpl",
+    "entityTableName": "candidat",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

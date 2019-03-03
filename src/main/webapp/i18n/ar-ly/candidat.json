@@ -27,6 +27,7 @@
             "lieuNaissance": "Lieu Naissance",
             "nationalite": "Nationalite",
             "adresse": "Adresse",
+            "nid": "Nid",
             "examenInfo": "Examen Info",
             "virement": "Virement",
             "lesson": "Lesson"
