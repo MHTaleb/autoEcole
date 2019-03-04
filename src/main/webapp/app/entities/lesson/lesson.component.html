@@ -32,6 +32,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="typeLesson"><span jhiTranslate="autoEcoleApp.lesson.typeLesson">Type Lesson</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dateLesson"><span jhiTranslate="autoEcoleApp.lesson.dateLesson">Date Lesson</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="heurLesson"><span jhiTranslate="autoEcoleApp.lesson.heurLesson">Heur Lesson</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="candidatId"><span jhiTranslate="autoEcoleApp.lesson.candidat">Candidat</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="voitureId"><span jhiTranslate="autoEcoleApp.lesson.voiture">Voiture</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="entraineurId"><span jhiTranslate="autoEcoleApp.lesson.entraineur">Entraineur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -43,6 +44,7 @@
                 <td><a [routerLink]="['/lesson', lesson.id, 'view' ]">{{lesson.id}}</a></td>
                 <td jhiTranslate="{{'autoEcoleApp.TypeLesson.' + lesson.typeLesson}}">{{lesson.typeLesson}}</td>
                 <td>{{lesson.dateLesson | date:'mediumDate'}}</td>
+                <td>{{lesson.heurLesson | date:'medium'}}</td>
                 <td>
                     <div *ngIf="lesson.candidatId">
                         <a [routerLink]="['../candidat', lesson.candidatId , 'view' ]" >{{lesson.candidatId}}</a>

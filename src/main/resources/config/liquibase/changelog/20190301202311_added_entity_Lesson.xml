@@ -30,6 +30,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="heur_lesson" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
             <column name="candidat_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -44,6 +48,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="lesson" columnName="heur_lesson" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

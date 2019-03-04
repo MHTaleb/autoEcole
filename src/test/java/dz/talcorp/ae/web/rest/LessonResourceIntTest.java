@@ -31,7 +31,9 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.Instant;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,6 +61,9 @@ public class LessonResourceIntTest {
 
     private static final LocalDate DEFAULT_DATE_LESSON = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_LESSON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final Instant DEFAULT_HEUR_LESSON = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_HEUR_LESSON = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private LessonRepository lessonRepository;
@@ -117,7 +122,8 @@ public class LessonResourceIntTest {
     public static Lesson createEntity(EntityManager em) {
         Lesson lesson = new Lesson()
             .typeLesson(DEFAULT_TYPE_LESSON)
-            .dateLesson(DEFAULT_DATE_LESSON);
+            .dateLesson(DEFAULT_DATE_LESSON)
+            .heurLesson(DEFAULT_HEUR_LESSON);
         // Add required entity
         Candidat candidat = CandidatResourceIntTest.createEntity(em);
         em.persist(candidat);
@@ -154,6 +160,7 @@ public class LessonResourceIntTest {
         Lesson testLesson = lessonList.get(lessonList.size() - 1);
         assertThat(testLesson.getTypeLesson()).isEqualTo(DEFAULT_TYPE_LESSON);
         assertThat(testLesson.getDateLesson()).isEqualTo(DEFAULT_DATE_LESSON);
+        assertThat(testLesson.getHeurLesson()).isEqualTo(DEFAULT_HEUR_LESSON);
 
         // Validate the Lesson in Elasticsearch
         verify(mockLessonSearchRepository, times(1)).save(testLesson);
@@ -222,6 +229,25 @@ public class LessonResourceIntTest {
 
     @Test
     @Transactional
+    public void checkHeurLessonIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lessonRepository.findAll().size();
+        // set the field null
+        lesson.setHeurLesson(null);
+
+        // Create the Lesson, which fails.
+        LessonDTO lessonDTO = lessonMapper.toDto(lesson);
+
+        restLessonMockMvc.perform(post("/api/lessons")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(lessonDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Lesson> lessonList = lessonRepository.findAll();
+        assertThat(lessonList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllLessons() throws Exception {
         // Initialize the database
         lessonRepository.saveAndFlush(lesson);
@@ -232,7 +258,8 @@ public class LessonResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lesson.getId().intValue())))
             .andExpect(jsonPath("$.[*].typeLesson").value(hasItem(DEFAULT_TYPE_LESSON.toString())))
-            .andExpect(jsonPath("$.[*].dateLesson").value(hasItem(DEFAULT_DATE_LESSON.toString())));
+            .andExpect(jsonPath("$.[*].dateLesson").value(hasItem(DEFAULT_DATE_LESSON.toString())))
+            .andExpect(jsonPath("$.[*].heurLesson").value(hasItem(DEFAULT_HEUR_LESSON.toString())));
     }
     
     @Test
@@ -247,7 +274,8 @@ public class LessonResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(lesson.getId().intValue()))
             .andExpect(jsonPath("$.typeLesson").value(DEFAULT_TYPE_LESSON.toString()))
-            .andExpect(jsonPath("$.dateLesson").value(DEFAULT_DATE_LESSON.toString()));
+            .andExpect(jsonPath("$.dateLesson").value(DEFAULT_DATE_LESSON.toString()))
+            .andExpect(jsonPath("$.heurLesson").value(DEFAULT_HEUR_LESSON.toString()));
     }
 
     @Test
@@ -272,7 +300,8 @@ public class LessonResourceIntTest {
         em.detach(updatedLesson);
         updatedLesson
             .typeLesson(UPDATED_TYPE_LESSON)
-            .dateLesson(UPDATED_DATE_LESSON);
+            .dateLesson(UPDATED_DATE_LESSON)
+            .heurLesson(UPDATED_HEUR_LESSON);
         LessonDTO lessonDTO = lessonMapper.toDto(updatedLesson);
 
         restLessonMockMvc.perform(put("/api/lessons")
@@ -286,6 +315,7 @@ public class LessonResourceIntTest {
         Lesson testLesson = lessonList.get(lessonList.size() - 1);
         assertThat(testLesson.getTypeLesson()).isEqualTo(UPDATED_TYPE_LESSON);
         assertThat(testLesson.getDateLesson()).isEqualTo(UPDATED_DATE_LESSON);
+        assertThat(testLesson.getHeurLesson()).isEqualTo(UPDATED_HEUR_LESSON);
 
         // Validate the Lesson in Elasticsearch
         verify(mockLessonSearchRepository, times(1)).save(testLesson);
@@ -347,7 +377,8 @@ public class LessonResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lesson.getId().intValue())))
             .andExpect(jsonPath("$.[*].typeLesson").value(hasItem(DEFAULT_TYPE_LESSON.toString())))
-            .andExpect(jsonPath("$.[*].dateLesson").value(hasItem(DEFAULT_DATE_LESSON.toString())));
+            .andExpect(jsonPath("$.[*].dateLesson").value(hasItem(DEFAULT_DATE_LESSON.toString())))
+            .andExpect(jsonPath("$.[*].heurLesson").value(hasItem(DEFAULT_HEUR_LESSON.toString())));
     }
 
     @Test

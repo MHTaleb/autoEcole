@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -38,6 +39,10 @@ public class Lesson implements Serializable {
     @NotNull
     @Column(name = "date_lesson", nullable = false)
     private LocalDate dateLesson;
+
+    @NotNull
+    @Column(name = "heur_lesson", nullable = false)
+    private Instant heurLesson;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -86,6 +91,19 @@ public class Lesson implements Serializable {
 
     public void setDateLesson(LocalDate dateLesson) {
         this.dateLesson = dateLesson;
+    }
+
+    public Instant getHeurLesson() {
+        return heurLesson;
+    }
+
+    public Lesson heurLesson(Instant heurLesson) {
+        this.heurLesson = heurLesson;
+        return this;
+    }
+
+    public void setHeurLesson(Instant heurLesson) {
+        this.heurLesson = heurLesson;
     }
 
     public Candidat getCandidat() {
@@ -154,6 +172,7 @@ public class Lesson implements Serializable {
             "id=" + getId() +
             ", typeLesson='" + getTypeLesson() + "'" +
             ", dateLesson='" + getDateLesson() + "'" +
+            ", heurLesson='" + getHeurLesson() + "'" +
             "}";
     }
 }

@@ -28,6 +28,7 @@ export class LessonUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     typeLessonSelect = element(by.id('field_typeLesson'));
     dateLessonInput = element(by.id('field_dateLesson'));
+    heurLessonInput = element(by.id('field_heurLesson'));
     candidatSelect = element(by.id('field_candidat'));
     voitureSelect = element(by.id('field_voiture'));
     entraineurSelect = element(by.id('field_entraineur'));
@@ -57,6 +58,14 @@ export class LessonUpdatePage {
 
     async getDateLessonInput() {
         return this.dateLessonInput.getAttribute('value');
+    }
+
+    async setHeurLessonInput(heurLesson) {
+        await this.heurLessonInput.sendKeys(heurLesson);
+    }
+
+    async getHeurLessonInput() {
+        return this.heurLessonInput.getAttribute('value');
     }
 
     async candidatSelectLastOption() {

@@ -18,6 +18,7 @@
             },
             "typeLesson": "Type Lesson",
             "dateLesson": "Date Lesson",
+            "heurLesson": "Heur Lesson",
             "candidat": "Candidat",
             "voiture": "Voiture",
             "entraineur": "Entraineur"

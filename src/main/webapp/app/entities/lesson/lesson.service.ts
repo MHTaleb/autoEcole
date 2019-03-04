@@ -59,7 +59,8 @@ export class LessonService {
 
     protected convertDateFromClient(lesson: ILesson): ILesson {
         const copy: ILesson = Object.assign({}, lesson, {
-            dateLesson: lesson.dateLesson != null && lesson.dateLesson.isValid() ? lesson.dateLesson.format(DATE_FORMAT) : null
+            dateLesson: lesson.dateLesson != null && lesson.dateLesson.isValid() ? lesson.dateLesson.format(DATE_FORMAT) : null,
+            heurLesson: lesson.heurLesson != null && lesson.heurLesson.isValid() ? lesson.heurLesson.toJSON() : null
         });
         return copy;
     }
@@ -67,6 +68,7 @@ export class LessonService {
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
             res.body.dateLesson = res.body.dateLesson != null ? moment(res.body.dateLesson) : null;
+            res.body.heurLesson = res.body.heurLesson != null ? moment(res.body.heurLesson) : null;
         }
         return res;
     }
@@ -75,6 +77,7 @@ export class LessonService {
         if (res.body) {
             res.body.forEach((lesson: ILesson) => {
                 lesson.dateLesson = lesson.dateLesson != null ? moment(lesson.dateLesson) : null;
+                lesson.heurLesson = lesson.heurLesson != null ? moment(lesson.heurLesson) : null;
             });
         }
         return res;

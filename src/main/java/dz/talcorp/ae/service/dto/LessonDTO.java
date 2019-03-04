@@ -1,4 +1,5 @@
 package dz.talcorp.ae.service.dto;
+import java.time.Instant;
 import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -17,6 +18,9 @@ public class LessonDTO implements Serializable {
 
     @NotNull
     private LocalDate dateLesson;
+
+    @NotNull
+    private Instant heurLesson;
 
 
     private Long candidatId;
@@ -47,6 +51,14 @@ public class LessonDTO implements Serializable {
 
     public void setDateLesson(LocalDate dateLesson) {
         this.dateLesson = dateLesson;
+    }
+
+    public Instant getHeurLesson() {
+        return heurLesson;
+    }
+
+    public void setHeurLesson(Instant heurLesson) {
+        this.heurLesson = heurLesson;
     }
 
     public Long getCandidatId() {
@@ -100,6 +112,7 @@ public class LessonDTO implements Serializable {
             "id=" + getId() +
             ", typeLesson='" + getTypeLesson() + "'" +
             ", dateLesson='" + getDateLesson() + "'" +
+            ", heurLesson='" + getHeurLesson() + "'" +
             ", candidat=" + getCandidatId() +
             ", voiture=" + getVoitureId() +
             ", entraineur=" + getEntraineurId() +

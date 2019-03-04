@@ -4,6 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { ILesson } from 'app/shared/model/lesson.model';
 import { LessonService } from './lesson.service';
@@ -28,6 +29,7 @@ export class LessonUpdateComponent implements OnInit {
 
     entraineurs: IEntraineur[];
     dateLessonDp: any;
+    heurLesson: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -42,6 +44,7 @@ export class LessonUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ lesson }) => {
             this.lesson = lesson;
+            this.heurLesson = this.lesson.heurLesson != null ? this.lesson.heurLesson.format(DATE_TIME_FORMAT) : null;
         });
         this.candidatService
             .query()
@@ -72,6 +75,7 @@ export class LessonUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.lesson.heurLesson = this.heurLesson != null ? moment(this.heurLesson, DATE_TIME_FORMAT) : null;
         if (this.lesson.id !== undefined) {
             this.subscribeToSaveResponse(this.lessonService.update(this.lesson));
         } else {

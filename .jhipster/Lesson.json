@@ -15,6 +15,13 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "heurLesson",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [

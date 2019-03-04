@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, ExpectedConditions as ec, promise } from 'protractor';
+import { browser, ExpectedConditions as ec, protractor, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { LessonComponentsPage, LessonDeleteDialog, LessonUpdatePage } from './lesson.page-object';
@@ -42,11 +42,13 @@ describe('Lesson e2e test', () => {
         await promise.all([
             lessonUpdatePage.typeLessonSelectLastOption(),
             lessonUpdatePage.setDateLessonInput('2000-12-31'),
+            lessonUpdatePage.setHeurLessonInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
             lessonUpdatePage.candidatSelectLastOption(),
             lessonUpdatePage.voitureSelectLastOption(),
             lessonUpdatePage.entraineurSelectLastOption(),
         ]);
         expect(await lessonUpdatePage.getDateLessonInput()).to.eq('2000-12-31');
+        expect(await lessonUpdatePage.getHeurLessonInput()).to.contain('2001-01-01T02:30');
         await lessonUpdatePage.save();
         expect(await lessonUpdatePage.getSaveButton().isPresent()).to.be.false;
 

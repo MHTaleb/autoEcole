@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { LessonService } from 'app/entities/lesson/lesson.service';
 import { ILesson, Lesson, TypeLesson } from 'app/shared/model/lesson.model';
 
@@ -25,14 +25,15 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Lesson(0, TypeLesson.CODE, currentDate);
+            elemDefault = new Lesson(0, TypeLesson.CODE, currentDate, currentDate);
         });
 
         describe('Service methods', async () => {
             it('should find an element', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        dateLesson: currentDate.format(DATE_FORMAT)
+                        dateLesson: currentDate.format(DATE_FORMAT),
+                        heurLesson: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
@@ -49,13 +50,15 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 0,
-                        dateLesson: currentDate.format(DATE_FORMAT)
+                        dateLesson: currentDate.format(DATE_FORMAT),
+                        heurLesson: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        dateLesson: currentDate
+                        dateLesson: currentDate,
+                        heurLesson: currentDate
                     },
                     returnedFromService
                 );
@@ -71,14 +74,16 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         typeLesson: 'BBBBBB',
-                        dateLesson: currentDate.format(DATE_FORMAT)
+                        dateLesson: currentDate.format(DATE_FORMAT),
+                        heurLesson: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
 
                 const expected = Object.assign(
                     {
-                        dateLesson: currentDate
+                        dateLesson: currentDate,
+                        heurLesson: currentDate
                     },
                     returnedFromService
                 );
@@ -94,13 +99,15 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         typeLesson: 'BBBBBB',
-                        dateLesson: currentDate.format(DATE_FORMAT)
+                        dateLesson: currentDate.format(DATE_FORMAT),
+                        heurLesson: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        dateLesson: currentDate
+                        dateLesson: currentDate,
+                        heurLesson: currentDate
                     },
                     returnedFromService
                 );

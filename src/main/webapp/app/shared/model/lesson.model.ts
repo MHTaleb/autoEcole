@@ -11,6 +11,7 @@ export interface ILesson {
     id?: number;
     typeLesson?: TypeLesson;
     dateLesson?: Moment;
+    heurLesson?: Moment;
     candidatId?: number;
     voitureId?: number;
     entraineurId?: number;
@@ -21,6 +22,7 @@ export class Lesson implements ILesson {
         public id?: number,
         public typeLesson?: TypeLesson,
         public dateLesson?: Moment,
+        public heurLesson?: Moment,
         public candidatId?: number,
         public voitureId?: number,
         public entraineurId?: number

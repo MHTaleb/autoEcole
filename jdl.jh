@@ -13,6 +13,15 @@ entity Ecole{
 entity Lesson {
 	typeLesson TypeLesson required
     dateLesson LocalDate required
+	heurLesson Instant required
+	etatLesson EtatLesson required
+}
+
+enum EtatLesson{
+	PLANIFIER,
+	VALIDER,
+	ANNULER,
+	ABSENT
 }
 
 entity Car{
