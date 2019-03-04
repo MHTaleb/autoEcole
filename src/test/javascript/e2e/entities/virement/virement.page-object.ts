@@ -28,6 +28,7 @@ export class VirementUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     montantInput = element(by.id('field_montant'));
     dateVirementInput = element(by.id('field_dateVirement'));
+    heurVirementInput = element(by.id('field_heurVirement'));
     candidatSelect = element(by.id('field_candidat'));
 
     async getPageTitle() {
@@ -48,6 +49,14 @@ export class VirementUpdatePage {
 
     async getDateVirementInput() {
         return this.dateVirementInput.getAttribute('value');
+    }
+
+    async setHeurVirementInput(heurVirement) {
+        await this.heurVirementInput.sendKeys(heurVirement);
+    }
+
+    async getHeurVirementInput() {
+        return this.heurVirementInput.getAttribute('value');
     }
 
     async candidatSelectLastOption() {

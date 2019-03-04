@@ -29,6 +29,8 @@ export class LessonUpdatePage {
     typeLessonSelect = element(by.id('field_typeLesson'));
     dateLessonInput = element(by.id('field_dateLesson'));
     heurLessonInput = element(by.id('field_heurLesson'));
+    etatLessonSelect = element(by.id('field_etatLesson'));
+    observationInput = element(by.id('field_observation'));
     candidatSelect = element(by.id('field_candidat'));
     voitureSelect = element(by.id('field_voiture'));
     entraineurSelect = element(by.id('field_entraineur'));
@@ -66,6 +68,29 @@ export class LessonUpdatePage {
 
     async getHeurLessonInput() {
         return this.heurLessonInput.getAttribute('value');
+    }
+
+    async setEtatLessonSelect(etatLesson) {
+        await this.etatLessonSelect.sendKeys(etatLesson);
+    }
+
+    async getEtatLessonSelect() {
+        return this.etatLessonSelect.element(by.css('option:checked')).getText();
+    }
+
+    async etatLessonSelectLastOption() {
+        await this.etatLessonSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async setObservationInput(observation) {
+        await this.observationInput.sendKeys(observation);
+    }
+
+    async getObservationInput() {
+        return this.observationInput.getAttribute('value');
     }
 
     async candidatSelectLastOption() {

@@ -169,6 +169,25 @@ public class CarResourceIntTest {
 
     @Test
     @Transactional
+    public void checkMatriculeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = carRepository.findAll().size();
+        // set the field null
+        car.setMatricule(null);
+
+        // Create the Car, which fails.
+        CarDTO carDTO = carMapper.toDto(car);
+
+        restCarMockMvc.perform(post("/api/cars")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(carDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Car> carList = carRepository.findAll();
+        assertThat(carList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCars() throws Exception {
         // Initialize the database
         carRepository.saveAndFlush(car);

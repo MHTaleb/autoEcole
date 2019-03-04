@@ -60,7 +60,8 @@ export class VirementService {
     protected convertDateFromClient(virement: IVirement): IVirement {
         const copy: IVirement = Object.assign({}, virement, {
             dateVirement:
-                virement.dateVirement != null && virement.dateVirement.isValid() ? virement.dateVirement.format(DATE_FORMAT) : null
+                virement.dateVirement != null && virement.dateVirement.isValid() ? virement.dateVirement.format(DATE_FORMAT) : null,
+            heurVirement: virement.heurVirement != null && virement.heurVirement.isValid() ? virement.heurVirement.toJSON() : null
         });
         return copy;
     }
@@ -68,6 +69,7 @@ export class VirementService {
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
             res.body.dateVirement = res.body.dateVirement != null ? moment(res.body.dateVirement) : null;
+            res.body.heurVirement = res.body.heurVirement != null ? moment(res.body.heurVirement) : null;
         }
         return res;
     }
@@ -76,6 +78,7 @@ export class VirementService {
         if (res.body) {
             res.body.forEach((virement: IVirement) => {
                 virement.dateVirement = virement.dateVirement != null ? moment(virement.dateVirement) : null;
+                virement.heurVirement = virement.heurVirement != null ? moment(virement.heurVirement) : null;
             });
         }
         return res;

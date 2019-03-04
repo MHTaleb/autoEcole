@@ -32,6 +32,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montant"><span jhiTranslate="autoEcoleApp.virement.montant">Montant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dateVirement"><span jhiTranslate="autoEcoleApp.virement.dateVirement">Date Virement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="heurVirement"><span jhiTranslate="autoEcoleApp.virement.heurVirement">Heur Virement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="candidatId"><span jhiTranslate="autoEcoleApp.virement.candidat">Candidat</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -41,6 +42,7 @@
                 <td><a [routerLink]="['/virement', virement.id, 'view' ]">{{virement.id}}</a></td>
                 <td>{{virement.montant}}</td>
                 <td>{{virement.dateVirement | date:'mediumDate'}}</td>
+                <td>{{virement.heurVirement | date:'medium'}}</td>
                 <td>
                     <div *ngIf="virement.candidatId">
                         <a [routerLink]="['../candidat', virement.candidatId , 'view' ]" >{{virement.candidatId}}</a>

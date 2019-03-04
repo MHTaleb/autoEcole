@@ -4,6 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { IVirement } from 'app/shared/model/virement.model';
 import { VirementService } from './virement.service';
@@ -20,6 +21,7 @@ export class VirementUpdateComponent implements OnInit {
 
     candidats: ICandidat[];
     dateVirementDp: any;
+    heurVirement: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -32,6 +34,7 @@ export class VirementUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ virement }) => {
             this.virement = virement;
+            this.heurVirement = this.virement.heurVirement != null ? this.virement.heurVirement.format(DATE_TIME_FORMAT) : null;
         });
         this.candidatService
             .query()
@@ -48,6 +51,7 @@ export class VirementUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.virement.heurVirement = this.heurVirement != null ? moment(this.heurVirement, DATE_TIME_FORMAT) : null;
         if (this.virement.id !== undefined) {
             this.subscribeToSaveResponse(this.virementService.update(this.virement));
         } else {

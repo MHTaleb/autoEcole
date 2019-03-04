@@ -3,7 +3,11 @@
     "fields": [
         {
             "fieldName": "matricule",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "unique",
+                "required"
+            ]
         },
         {
             "fieldName": "marque",

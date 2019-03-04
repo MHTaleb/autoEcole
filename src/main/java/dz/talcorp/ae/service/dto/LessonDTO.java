@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 import dz.talcorp.ae.domain.enumeration.TypeLesson;
+import dz.talcorp.ae.domain.enumeration.EtatLesson;
 
 /**
  * A DTO for the Lesson entity.
@@ -21,6 +23,12 @@ public class LessonDTO implements Serializable {
 
     @NotNull
     private Instant heurLesson;
+
+    @NotNull
+    private EtatLesson etatLesson;
+
+    @Lob
+    private String observation;
 
 
     private Long candidatId;
@@ -59,6 +67,22 @@ public class LessonDTO implements Serializable {
 
     public void setHeurLesson(Instant heurLesson) {
         this.heurLesson = heurLesson;
+    }
+
+    public EtatLesson getEtatLesson() {
+        return etatLesson;
+    }
+
+    public void setEtatLesson(EtatLesson etatLesson) {
+        this.etatLesson = etatLesson;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public Long getCandidatId() {
@@ -113,6 +137,8 @@ public class LessonDTO implements Serializable {
             ", typeLesson='" + getTypeLesson() + "'" +
             ", dateLesson='" + getDateLesson() + "'" +
             ", heurLesson='" + getHeurLesson() + "'" +
+            ", etatLesson='" + getEtatLesson() + "'" +
+            ", observation='" + getObservation() + "'" +
             ", candidat=" + getCandidatId() +
             ", voiture=" + getVoitureId() +
             ", entraineur=" + getEntraineurId() +

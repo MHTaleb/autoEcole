@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { ILesson } from 'app/shared/model/lesson.model';
 import { LessonService } from './lesson.service';
 import { ICandidat } from 'app/shared/model/candidat.model';
@@ -32,6 +32,7 @@ export class LessonUpdateComponent implements OnInit {
     heurLesson: string;
 
     constructor(
+        protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
         protected lessonService: LessonService,
         protected candidatService: CandidatService,
@@ -67,6 +68,18 @@ export class LessonUpdateComponent implements OnInit {
                 map((response: HttpResponse<IEntraineur[]>) => response.body)
             )
             .subscribe((res: IEntraineur[]) => (this.entraineurs = res), (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     previousState() {

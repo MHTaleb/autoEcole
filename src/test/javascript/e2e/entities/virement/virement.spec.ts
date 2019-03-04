@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, ExpectedConditions as ec, promise } from 'protractor';
+import { browser, ExpectedConditions as ec, protractor, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { VirementComponentsPage, VirementDeleteDialog, VirementUpdatePage } from './virement.page-object';
@@ -42,10 +42,12 @@ describe('Virement e2e test', () => {
         await promise.all([
             virementUpdatePage.setMontantInput('5'),
             virementUpdatePage.setDateVirementInput('2000-12-31'),
+            virementUpdatePage.setHeurVirementInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
             virementUpdatePage.candidatSelectLastOption(),
         ]);
         expect(await virementUpdatePage.getMontantInput()).to.eq('5');
         expect(await virementUpdatePage.getDateVirementInput()).to.eq('2000-12-31');
+        expect(await virementUpdatePage.getHeurVirementInput()).to.contain('2001-01-01T02:30');
         await virementUpdatePage.save();
         expect(await virementUpdatePage.getSaveButton().isPresent()).to.be.false;
 

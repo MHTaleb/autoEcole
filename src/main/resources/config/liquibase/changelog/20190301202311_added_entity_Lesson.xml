@@ -34,6 +34,14 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="etat_lesson" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="observation" type="clob">
+                <constraints nullable="true" />
+            </column>
+
             <column name="candidat_id" type="bigint">
                 <constraints nullable="false" />
             </column>

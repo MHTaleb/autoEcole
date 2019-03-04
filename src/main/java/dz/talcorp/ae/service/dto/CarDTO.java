@@ -1,4 +1,5 @@
 package dz.talcorp.ae.service.dto;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ public class CarDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private String matricule;
 
     private String marque;

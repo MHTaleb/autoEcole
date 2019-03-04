@@ -19,6 +19,8 @@
             "typeLesson": "Type Lesson",
             "dateLesson": "Date Lesson",
             "heurLesson": "Heur Lesson",
+            "etatLesson": "Etat Lesson",
+            "observation": "Observation",
             "candidat": "Candidat",
             "voiture": "Voiture",
             "entraineur": "Entraineur"

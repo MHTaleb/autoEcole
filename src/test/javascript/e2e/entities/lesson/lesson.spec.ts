@@ -43,12 +43,15 @@ describe('Lesson e2e test', () => {
             lessonUpdatePage.typeLessonSelectLastOption(),
             lessonUpdatePage.setDateLessonInput('2000-12-31'),
             lessonUpdatePage.setHeurLessonInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+            lessonUpdatePage.etatLessonSelectLastOption(),
+            lessonUpdatePage.setObservationInput('observation'),
             lessonUpdatePage.candidatSelectLastOption(),
             lessonUpdatePage.voitureSelectLastOption(),
             lessonUpdatePage.entraineurSelectLastOption(),
         ]);
         expect(await lessonUpdatePage.getDateLessonInput()).to.eq('2000-12-31');
         expect(await lessonUpdatePage.getHeurLessonInput()).to.contain('2001-01-01T02:30');
+        expect(await lessonUpdatePage.getObservationInput()).to.eq('observation');
         await lessonUpdatePage.save();
         expect(await lessonUpdatePage.getSaveButton().isPresent()).to.be.false;
 

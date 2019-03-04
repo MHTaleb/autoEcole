@@ -30,7 +30,9 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.Instant;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,6 +59,9 @@ public class VirementResourceIntTest {
 
     private static final LocalDate DEFAULT_DATE_VIREMENT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_VIREMENT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final Instant DEFAULT_HEUR_VIREMENT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_HEUR_VIREMENT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private VirementRepository virementRepository;
@@ -115,7 +120,8 @@ public class VirementResourceIntTest {
     public static Virement createEntity(EntityManager em) {
         Virement virement = new Virement()
             .montant(DEFAULT_MONTANT)
-            .dateVirement(DEFAULT_DATE_VIREMENT);
+            .dateVirement(DEFAULT_DATE_VIREMENT)
+            .heurVirement(DEFAULT_HEUR_VIREMENT);
         // Add required entity
         Candidat candidat = CandidatResourceIntTest.createEntity(em);
         em.persist(candidat);
@@ -147,6 +153,7 @@ public class VirementResourceIntTest {
         Virement testVirement = virementList.get(virementList.size() - 1);
         assertThat(testVirement.getMontant()).isEqualTo(DEFAULT_MONTANT);
         assertThat(testVirement.getDateVirement()).isEqualTo(DEFAULT_DATE_VIREMENT);
+        assertThat(testVirement.getHeurVirement()).isEqualTo(DEFAULT_HEUR_VIREMENT);
 
         // Validate the Virement in Elasticsearch
         verify(mockVirementSearchRepository, times(1)).save(testVirement);
@@ -215,6 +222,25 @@ public class VirementResourceIntTest {
 
     @Test
     @Transactional
+    public void checkHeurVirementIsRequired() throws Exception {
+        int databaseSizeBeforeTest = virementRepository.findAll().size();
+        // set the field null
+        virement.setHeurVirement(null);
+
+        // Create the Virement, which fails.
+        VirementDTO virementDTO = virementMapper.toDto(virement);
+
+        restVirementMockMvc.perform(post("/api/virements")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(virementDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Virement> virementList = virementRepository.findAll();
+        assertThat(virementList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllVirements() throws Exception {
         // Initialize the database
         virementRepository.saveAndFlush(virement);
@@ -225,7 +251,8 @@ public class VirementResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(virement.getId().intValue())))
             .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.doubleValue())))
-            .andExpect(jsonPath("$.[*].dateVirement").value(hasItem(DEFAULT_DATE_VIREMENT.toString())));
+            .andExpect(jsonPath("$.[*].dateVirement").value(hasItem(DEFAULT_DATE_VIREMENT.toString())))
+            .andExpect(jsonPath("$.[*].heurVirement").value(hasItem(DEFAULT_HEUR_VIREMENT.toString())));
     }
     
     @Test
@@ -240,7 +267,8 @@ public class VirementResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(virement.getId().intValue()))
             .andExpect(jsonPath("$.montant").value(DEFAULT_MONTANT.doubleValue()))
-            .andExpect(jsonPath("$.dateVirement").value(DEFAULT_DATE_VIREMENT.toString()));
+            .andExpect(jsonPath("$.dateVirement").value(DEFAULT_DATE_VIREMENT.toString()))
+            .andExpect(jsonPath("$.heurVirement").value(DEFAULT_HEUR_VIREMENT.toString()));
     }
 
     @Test
@@ -265,7 +293,8 @@ public class VirementResourceIntTest {
         em.detach(updatedVirement);
         updatedVirement
             .montant(UPDATED_MONTANT)
-            .dateVirement(UPDATED_DATE_VIREMENT);
+            .dateVirement(UPDATED_DATE_VIREMENT)
+            .heurVirement(UPDATED_HEUR_VIREMENT);
         VirementDTO virementDTO = virementMapper.toDto(updatedVirement);
 
         restVirementMockMvc.perform(put("/api/virements")
@@ -279,6 +308,7 @@ public class VirementResourceIntTest {
         Virement testVirement = virementList.get(virementList.size() - 1);
         assertThat(testVirement.getMontant()).isEqualTo(UPDATED_MONTANT);
         assertThat(testVirement.getDateVirement()).isEqualTo(UPDATED_DATE_VIREMENT);
+        assertThat(testVirement.getHeurVirement()).isEqualTo(UPDATED_HEUR_VIREMENT);
 
         // Validate the Virement in Elasticsearch
         verify(mockVirementSearchRepository, times(1)).save(testVirement);
@@ -340,7 +370,8 @@ public class VirementResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(virement.getId().intValue())))
             .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.doubleValue())))
-            .andExpect(jsonPath("$.[*].dateVirement").value(hasItem(DEFAULT_DATE_VIREMENT.toString())));
+            .andExpect(jsonPath("$.[*].dateVirement").value(hasItem(DEFAULT_DATE_VIREMENT.toString())))
+            .andExpect(jsonPath("$.[*].heurVirement").value(hasItem(DEFAULT_HEUR_VIREMENT.toString())));
     }
 
     @Test

@@ -18,6 +18,7 @@
             },
             "montant": "Montant",
             "dateVirement": "Date Virement",
+            "heurVirement": "Heur Virement",
             "candidat": "Candidat"
         }
     }

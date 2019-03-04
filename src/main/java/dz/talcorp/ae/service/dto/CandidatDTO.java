@@ -49,7 +49,6 @@ public class CandidatDTO implements Serializable {
     private String adresse;
 
     @NotNull
-    @Size(min = 4)
     private String nid;
 
 

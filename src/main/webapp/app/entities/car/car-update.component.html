@@ -12,7 +12,13 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="autoEcoleApp.car.matricule" for="field_matricule">Matricule</label>
                     <input type="text" class="form-control" name="matricule" id="field_matricule"
-                        [(ngModel)]="car.matricule" />
+                        [(ngModel)]="car.matricule" required/>
+                    <div [hidden]="!(editForm.controls.matricule?.dirty && editForm.controls.matricule?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.matricule?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="autoEcoleApp.car.marque" for="field_marque">Marque</label>

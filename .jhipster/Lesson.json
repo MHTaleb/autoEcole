@@ -22,6 +22,19 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "etatLesson",
+            "fieldType": "EtatLesson",
+            "fieldValues": "PLANIFIER,VALIDER,ANNULER,ABSENT",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "observation",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
         }
     ],
     "relationships": [

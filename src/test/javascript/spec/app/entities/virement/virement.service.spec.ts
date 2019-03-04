@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { VirementService } from 'app/entities/virement/virement.service';
 import { IVirement, Virement } from 'app/shared/model/virement.model';
 
@@ -25,14 +25,15 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Virement(0, 0, currentDate);
+            elemDefault = new Virement(0, 0, currentDate, currentDate);
         });
 
         describe('Service methods', async () => {
             it('should find an element', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        dateVirement: currentDate.format(DATE_FORMAT)
+                        dateVirement: currentDate.format(DATE_FORMAT),
+                        heurVirement: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
@@ -49,13 +50,15 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 0,
-                        dateVirement: currentDate.format(DATE_FORMAT)
+                        dateVirement: currentDate.format(DATE_FORMAT),
+                        heurVirement: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        dateVirement: currentDate
+                        dateVirement: currentDate,
+                        heurVirement: currentDate
                     },
                     returnedFromService
                 );
@@ -71,14 +74,16 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         montant: 1,
-                        dateVirement: currentDate.format(DATE_FORMAT)
+                        dateVirement: currentDate.format(DATE_FORMAT),
+                        heurVirement: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
 
                 const expected = Object.assign(
                     {
-                        dateVirement: currentDate
+                        dateVirement: currentDate,
+                        heurVirement: currentDate
                     },
                     returnedFromService
                 );
@@ -94,13 +99,15 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         montant: 1,
-                        dateVirement: currentDate.format(DATE_FORMAT)
+                        dateVirement: currentDate.format(DATE_FORMAT),
+                        heurVirement: currentDate.format(DATE_TIME_FORMAT)
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        dateVirement: currentDate
+                        dateVirement: currentDate,
+                        heurVirement: currentDate
                     },
                     returnedFromService
                 );

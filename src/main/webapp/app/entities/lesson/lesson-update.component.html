@@ -57,6 +57,26 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.etatLesson" for="field_etatLesson">Etat Lesson</label>
+                    <select class="form-control" name="etatLesson" [(ngModel)]="lesson.etatLesson" id="field_etatLesson"  required>
+                        <option value="PLANIFIER">{{'autoEcoleApp.EtatLesson.PLANIFIER' | translate}}</option>
+                        <option value="VALIDER">{{'autoEcoleApp.EtatLesson.VALIDER' | translate}}</option>
+                        <option value="ANNULER">{{'autoEcoleApp.EtatLesson.ANNULER' | translate}}</option>
+                        <option value="ABSENT">{{'autoEcoleApp.EtatLesson.ABSENT' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.etatLesson?.dirty && editForm.controls.etatLesson?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.etatLesson?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.observation" for="field_observation">Observation</label>
+                    <textarea class="form-control" name="observation" id="field_observation"
+                        [(ngModel)]="lesson.observation" ></textarea>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="autoEcoleApp.lesson.candidat" for="field_candidat">Candidat</label>

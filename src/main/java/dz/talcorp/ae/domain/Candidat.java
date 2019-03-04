@@ -82,7 +82,6 @@ public class Candidat implements Serializable {
     private String adresse;
 
     @NotNull
-    @Size(min = 4)
     @Column(name = "nid", nullable = false, unique = true)
     private String nid;
 

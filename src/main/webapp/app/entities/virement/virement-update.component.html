@@ -40,6 +40,23 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.virement.heurVirement" for="field_heurVirement">Heur Virement</label>
+                    <div class="d-flex">
+                        <input id="field_heurVirement" type="datetime-local" class="form-control" name="heurVirement" [(ngModel)]="heurVirement" placeholder="YYYY-MM-DD HH:mm"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.heurVirement?.dirty && editForm.controls.heurVirement?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.heurVirement?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.heurVirement?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="autoEcoleApp.virement.candidat" for="field_candidat">Candidat</label>

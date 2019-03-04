@@ -7,7 +7,7 @@ import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { LessonService } from 'app/entities/lesson/lesson.service';
-import { ILesson, Lesson, TypeLesson } from 'app/shared/model/lesson.model';
+import { ILesson, Lesson, TypeLesson, EtatLesson } from 'app/shared/model/lesson.model';
 
 describe('Service Tests', () => {
     describe('Lesson Service', () => {
@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Lesson(0, TypeLesson.CODE, currentDate, currentDate);
+            elemDefault = new Lesson(0, TypeLesson.CODE, currentDate, currentDate, EtatLesson.PLANIFIER, 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -75,7 +75,9 @@ describe('Service Tests', () => {
                     {
                         typeLesson: 'BBBBBB',
                         dateLesson: currentDate.format(DATE_FORMAT),
-                        heurLesson: currentDate.format(DATE_TIME_FORMAT)
+                        heurLesson: currentDate.format(DATE_TIME_FORMAT),
+                        etatLesson: 'BBBBBB',
+                        observation: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -100,7 +102,9 @@ describe('Service Tests', () => {
                     {
                         typeLesson: 'BBBBBB',
                         dateLesson: currentDate.format(DATE_FORMAT),
-                        heurLesson: currentDate.format(DATE_TIME_FORMAT)
+                        heurLesson: currentDate.format(DATE_TIME_FORMAT),
+                        etatLesson: 'BBBBBB',
+                        observation: 'BBBBBB'
                     },
                     elemDefault
                 );

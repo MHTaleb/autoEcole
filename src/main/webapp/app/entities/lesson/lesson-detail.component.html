@@ -17,6 +17,14 @@
                 <dd>
                     <span>{{lesson.heurLesson}}</span>
                 </dd>
+                <dt><span jhiTranslate="autoEcoleApp.lesson.etatLesson">Etat Lesson</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'autoEcoleApp.EtatLesson.' + lesson.etatLesson}}">{{lesson.etatLesson}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleApp.lesson.observation">Observation</span></dt>
+                <dd>
+                    <span>{{lesson.observation}}</span>
+                </dd>
                 <dt><span jhiTranslate="autoEcoleApp.lesson.candidat">Candidat</span></dt>
                 <dd>
                     <div *ngIf="lesson.candidatId">

@@ -16,6 +16,8 @@ import java.util.Objects;
 
 import dz.talcorp.ae.domain.enumeration.TypeLesson;
 
+import dz.talcorp.ae.domain.enumeration.EtatLesson;
+
 /**
  * A Lesson.
  */
@@ -43,6 +45,15 @@ public class Lesson implements Serializable {
     @NotNull
     @Column(name = "heur_lesson", nullable = false)
     private Instant heurLesson;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "etat_lesson", nullable = false)
+    private EtatLesson etatLesson;
+
+    @Lob
+    @Column(name = "observation")
+    private String observation;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -104,6 +115,32 @@ public class Lesson implements Serializable {
 
     public void setHeurLesson(Instant heurLesson) {
         this.heurLesson = heurLesson;
+    }
+
+    public EtatLesson getEtatLesson() {
+        return etatLesson;
+    }
+
+    public Lesson etatLesson(EtatLesson etatLesson) {
+        this.etatLesson = etatLesson;
+        return this;
+    }
+
+    public void setEtatLesson(EtatLesson etatLesson) {
+        this.etatLesson = etatLesson;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public Lesson observation(String observation) {
+        this.observation = observation;
+        return this;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public Candidat getCandidat() {
@@ -173,6 +210,8 @@ public class Lesson implements Serializable {
             ", typeLesson='" + getTypeLesson() + "'" +
             ", dateLesson='" + getDateLesson() + "'" +
             ", heurLesson='" + getHeurLesson() + "'" +
+            ", etatLesson='" + getEtatLesson() + "'" +
+            ", observation='" + getObservation() + "'" +
             "}";
     }
 }

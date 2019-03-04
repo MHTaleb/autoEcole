@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -48,7 +49,7 @@ public class CarResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/cars")
-    public ResponseEntity<CarDTO> createCar(@RequestBody CarDTO carDTO) throws URISyntaxException {
+    public ResponseEntity<CarDTO> createCar(@Valid @RequestBody CarDTO carDTO) throws URISyntaxException {
         log.debug("REST request to save Car : {}", carDTO);
         if (carDTO.getId() != null) {
             throw new BadRequestAlertException("A new car cannot already have an ID", ENTITY_NAME, "idexists");
@@ -69,7 +70,7 @@ public class CarResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/cars")
-    public ResponseEntity<CarDTO> updateCar(@RequestBody CarDTO carDTO) throws URISyntaxException {
+    public ResponseEntity<CarDTO> updateCar(@Valid @RequestBody CarDTO carDTO) throws URISyntaxException {
         log.debug("REST request to update Car : {}", carDTO);
         if (carDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

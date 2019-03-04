@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -35,6 +36,10 @@ public class Virement implements Serializable {
     @NotNull
     @Column(name = "date_virement", nullable = false)
     private LocalDate dateVirement;
+
+    @NotNull
+    @Column(name = "heur_virement", nullable = false)
+    private Instant heurVirement;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -74,6 +79,19 @@ public class Virement implements Serializable {
 
     public void setDateVirement(LocalDate dateVirement) {
         this.dateVirement = dateVirement;
+    }
+
+    public Instant getHeurVirement() {
+        return heurVirement;
+    }
+
+    public Virement heurVirement(Instant heurVirement) {
+        this.heurVirement = heurVirement;
+        return this;
+    }
+
+    public void setHeurVirement(Instant heurVirement) {
+        this.heurVirement = heurVirement;
     }
 
     public Candidat getCandidat() {
@@ -116,6 +134,7 @@ public class Virement implements Serializable {
             "id=" + getId() +
             ", montant=" + getMontant() +
             ", dateVirement='" + getDateVirement() + "'" +
+            ", heurVirement='" + getHeurVirement() + "'" +
             "}";
     }
 }

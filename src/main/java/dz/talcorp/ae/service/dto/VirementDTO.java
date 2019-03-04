@@ -1,4 +1,5 @@
 package dz.talcorp.ae.service.dto;
+import java.time.Instant;
 import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -16,6 +17,9 @@ public class VirementDTO implements Serializable {
 
     @NotNull
     private LocalDate dateVirement;
+
+    @NotNull
+    private Instant heurVirement;
 
 
     private Long candidatId;
@@ -42,6 +46,14 @@ public class VirementDTO implements Serializable {
 
     public void setDateVirement(LocalDate dateVirement) {
         this.dateVirement = dateVirement;
+    }
+
+    public Instant getHeurVirement() {
+        return heurVirement;
+    }
+
+    public void setHeurVirement(Instant heurVirement) {
+        this.heurVirement = heurVirement;
     }
 
     public Long getCandidatId() {
@@ -79,6 +91,7 @@ public class VirementDTO implements Serializable {
             "id=" + getId() +
             ", montant=" + getMontant() +
             ", dateVirement='" + getDateVirement() + "'" +
+            ", heurVirement='" + getHeurVirement() + "'" +
             ", candidat=" + getCandidatId() +
             "}";
     }
