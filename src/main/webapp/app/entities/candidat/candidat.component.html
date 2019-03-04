@@ -41,6 +41,7 @@
             <th jhiSortBy="lieuNaissance"><span jhiTranslate="autoEcoleApp.candidat.lieuNaissance">Lieu Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nationalite"><span jhiTranslate="autoEcoleApp.candidat.nationalite">Nationalite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="adresse"><span jhiTranslate="autoEcoleApp.candidat.adresse">Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nid"><span jhiTranslate="autoEcoleApp.candidat.nid">Nid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -63,6 +64,7 @@
                 <td>{{candidat.lieuNaissance}}</td>
                 <td jhiTranslate="{{'autoEcoleApp.Nationalite.' + candidat.nationalite}}">{{candidat.nationalite}}</td>
                 <td>{{candidat.adresse}}</td>
+                <td>{{candidat.nid}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

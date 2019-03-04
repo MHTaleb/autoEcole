@@ -83,6 +83,7 @@ class CandidatGatlingTest extends Simulation {
                 , "lieuNaissance":"SAMPLE_TEXT"
                 , "nationalite":"ALGERIE"
                 , "adresse":"SAMPLE_TEXT"
+                , "nid":"SAMPLE_TEXT"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_candidat_url"))).exitHereIfFailed

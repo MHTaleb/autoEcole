@@ -38,6 +38,7 @@ describe('Service Tests', () => {
                 currentDate,
                 'AAAAAAA',
                 Nationalite.ALGERIE,
+                'AAAAAAA',
                 'AAAAAAA'
             );
         });
@@ -97,7 +98,8 @@ describe('Service Tests', () => {
                         dateNaissance: currentDate.format(DATE_FORMAT),
                         lieuNaissance: 'BBBBBB',
                         nationalite: 'BBBBBB',
-                        adresse: 'BBBBBB'
+                        adresse: 'BBBBBB',
+                        nid: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -130,7 +132,8 @@ describe('Service Tests', () => {
                         dateNaissance: currentDate.format(DATE_FORMAT),
                         lieuNaissance: 'BBBBBB',
                         nationalite: 'BBBBBB',
-                        adresse: 'BBBBBB'
+                        adresse: 'BBBBBB',
+                        nid: 'BBBBBB'
                     },
                     elemDefault
                 );

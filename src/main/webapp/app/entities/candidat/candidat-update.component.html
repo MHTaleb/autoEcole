@@ -155,6 +155,21 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleApp.candidat.nid" for="field_nid">Nid</label>
+                    <input type="text" class="form-control" name="nid" id="field_nid"
+                        [(ngModel)]="candidat.nid" required minlength="4"/>
+                    <div [hidden]="!(editForm.controls.nid?.dirty && editForm.controls.nid?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nid?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nid?.errors?.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 4 }">
+                        This field is required to be at least 4 characters.
+                        </small>
+                    </div>
+                </div>
 
             </div>
             <div>

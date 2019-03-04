@@ -37,6 +37,7 @@ export class CandidatUpdatePage {
     lieuNaissanceInput = element(by.id('field_lieuNaissance'));
     nationaliteSelect = element(by.id('field_nationalite'));
     adresseInput = element(by.id('field_adresse'));
+    nidInput = element(by.id('field_nid'));
 
     async getPageTitle() {
         return this.pageTitle.getAttribute('jhiTranslate');
@@ -135,6 +136,14 @@ export class CandidatUpdatePage {
 
     async getAdresseInput() {
         return this.adresseInput.getAttribute('value');
+    }
+
+    async setNidInput(nid) {
+        await this.nidInput.sendKeys(nid);
+    }
+
+    async getNidInput() {
+        return this.nidInput.getAttribute('value');
     }
 
     async save() {

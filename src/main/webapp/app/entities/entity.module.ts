@@ -51,10 +51,6 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'examen',
                 loadChildren: './examen/examen.module#AutoEcoleExamenModule'
-            },
-            {
-                path: 'lesson',
-                loadChildren: './lesson/lesson.module#AutoEcoleLessonModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
