@@ -1,0 +1,38 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "dz.talcorp.ae",
+            "nativeLanguage": "fr"
+        },
+        "jhipsterVersion": "5.8.1",
+        "applicationType": "monolith",
+        "baseName": "autoEcoleV01",
+        "packageName": "dz.talcorp.ae",
+        "packageFolder": "dz/talcorp/ae",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "hazelcast",
+        "enableHibernateCache": true,
+        "websocket": "spring-websocket",
+        "databaseType": "sql",
+        "devDatabaseType": "mariadb",
+        "prodDatabaseType": "mariadb",
+        "searchEngine": "elasticsearch",
+        "messageBroker": "kafka",
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": true,
+        "jwtSecretKey": "OWE0NjA2YTk3YzFiODA3NTc5ZWE1ZTc2YzkzYWNmMjQxMmNkOWViZDlhNGNhODBkMmU2OTIyZjdiZDQ5OWNmY2FhNzI4YzAyMDkwZTE3NTI1ODMxMDY3ZDNkZWNlNzhhY2IzNjc3ZDA5NTA2NWUzZWUzYzllNjNkMmVkZTc0ZDk=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["gatling", "cucumber", "protractor"],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": true,
+        "nativeLanguage": "fr",
+        "languages": ["fr", "ar-ly"]
+    }
+}

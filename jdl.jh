@@ -1,0 +1,113 @@
+enum Nationalite {
+	ALGERIE,
+	MARROC,
+	TUNISIE,
+	FRANCE,
+    AUTRE
+}
+entity Ecole{
+	nomEcole String required
+    president String required
+}
+
+entity Lesson {
+	typeLesson TypeLesson required
+	dateLesson Instant required
+	etatLesson EtatLesson required
+	observation TextBlob
+}
+
+enum EtatLesson{
+	PLANIFIER,
+	VALIDER,
+	ANNULER,
+	ABSENT
+}
+
+entity Car{
+	matricule String unique required
+    marque String
+}
+
+enum TypeLesson{
+	CODE,
+    CRENO,
+    CIRCULATION,
+	AUTRE
+}
+
+entity Entraineur {
+	photo ImageBlob
+	nom String required
+	prenom String required
+    telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
+}
+
+entity Candidat{
+	photo ImageBlob
+	nom String required
+	prenom String required
+	pere String required
+	mere String required
+	telephone String required pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)
+    dateInscription LocalDate required
+    dateNaissance LocalDate required
+    lieuNaissance String  required
+	nationalite Nationalite required
+    adresse String required
+	nid String unique required
+}
+
+entity Virement{
+	montant Double required
+	dateVirement Instant required
+}
+
+entity Examinateur{
+	nom String required
+	prenom String required
+    telephone String  pattern(/[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]/)  
+}
+
+entity Examen{
+	dateExamen LocalDate required
+}
+
+enum TypeExamen{
+	CODE,
+    CRENO,
+    CIRCULATION
+}
+
+entity ExamenInfo{
+	etat EtatExamen
+    type TypeExamen
+}
+
+enum EtatExamen{
+	ENCOURS,
+    REUSSI,
+    PERDU,
+    ABSENT,
+	INVALIDE
+}
+
+relationship OneToOne {
+	Entraineur{compte(login)} to User
+}
+
+relationship OneToMany{
+	Examen to ExamenInfo{examen(dateExamen) required}
+    Car to Examen{voiture(marque)}
+    Candidat to ExamenInfo{candidat required}
+    Candidat to Virement{candidat(nom) required}
+    Candidat to Lesson{candidat required}
+    Car to Lesson{voiture(marque)}
+    Entraineur to Lesson{entraineur(nom) required}
+    Examinateur to Examen{examinateur(nom) required}
+}
+
+service * with serviceImpl
+
+dto * with mapstruct
+paginate * with pagination
