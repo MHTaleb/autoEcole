@@ -1,0 +1,24 @@
+{
+    "autoEcoleV01App": {
+        "examenInfo": {
+            "home": {
+                "title": "Examen Infos",
+                "createLabel": "Create a new Examen Info",
+                "createOrEditLabel": "Create or edit a Examen Info"
+            },
+            "created": "A new Examen Info is created with identifier {{ param }}",
+            "updated": "A Examen Info is updated with identifier {{ param }}",
+            "deleted": "A Examen Info is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Examen Info {{ id }}?"
+            },
+            "detail": {
+                "title": "Examen Info"
+            },
+            "etat": "Etat",
+            "type": "Type",
+            "examen": "Examen",
+            "candidat": "Candidat"
+        }
+    }
+}

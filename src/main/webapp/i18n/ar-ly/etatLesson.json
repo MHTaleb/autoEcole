@@ -1,0 +1,11 @@
+{
+    "autoEcoleV01App": {
+        "EtatLesson": {
+            "null": "",
+            "PLANIFIER": "PLANIFIER",
+            "VALIDER": "VALIDER",
+            "ANNULER": "ANNULER",
+            "ABSENT": "ABSENT"
+        }
+    }
+}

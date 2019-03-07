@@ -1,0 +1,10 @@
+{
+    "autoEcoleV01App": {
+        "TypeExamen": {
+            "null": "",
+            "CODE": "CODE",
+            "CRENO": "CRENO",
+            "CIRCULATION": "CIRCULATION"
+        }
+    }
+}

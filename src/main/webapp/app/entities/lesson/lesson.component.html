@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="autoEcoleV01App.lesson.home.title">Lessons</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-lesson" [routerLink]="['/lesson/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="autoEcoleV01App.lesson.home.createLabel">
+            Create new Lesson
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="lessons">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="typeLesson"><span jhiTranslate="autoEcoleV01App.lesson.typeLesson">Type Lesson</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateLesson"><span jhiTranslate="autoEcoleV01App.lesson.dateLesson">Date Lesson</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="etatLesson"><span jhiTranslate="autoEcoleV01App.lesson.etatLesson">Etat Lesson</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="observation"><span jhiTranslate="autoEcoleV01App.lesson.observation">Observation</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="candidatId"><span jhiTranslate="autoEcoleV01App.lesson.candidat">Candidat</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="voitureMarque"><span jhiTranslate="autoEcoleV01App.lesson.voiture">Voiture</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="entraineurNom"><span jhiTranslate="autoEcoleV01App.lesson.entraineur">Entraineur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let lesson of lessons ;trackBy: trackId">
+                <td><a [routerLink]="['/lesson', lesson.id, 'view' ]">{{lesson.id}}</a></td>
+                <td jhiTranslate="{{'autoEcoleV01App.TypeLesson.' + lesson.typeLesson}}">{{lesson.typeLesson}}</td>
+                <td>{{lesson.dateLesson | date:'medium'}}</td>
+                <td jhiTranslate="{{'autoEcoleV01App.EtatLesson.' + lesson.etatLesson}}">{{lesson.etatLesson}}</td>
+                <td>{{lesson.observation}}</td>
+                <td>
+                    <div *ngIf="lesson.candidatId">
+                        <a [routerLink]="['../candidat', lesson.candidatId , 'view' ]" >{{lesson.candidatId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="lesson.voitureId">
+                        <a [routerLink]="['../car', lesson.voitureId , 'view' ]" >{{lesson.voitureMarque}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="lesson.entraineurId">
+                        <a [routerLink]="['../entraineur', lesson.entraineurId , 'view' ]" >{{lesson.entraineurNom}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/lesson', lesson.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/lesson', lesson.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'lesson', { outlets: { popup: lesson.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="lessons && lessons.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

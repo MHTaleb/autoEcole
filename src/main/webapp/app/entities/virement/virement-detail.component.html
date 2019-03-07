@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="virement">
+            <h2><span jhiTranslate="autoEcoleV01App.virement.detail.title">Virement</span> {{virement.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="autoEcoleV01App.virement.montant">Montant</span></dt>
+                <dd>
+                    <span>{{virement.montant}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleV01App.virement.dateVirement">Date Virement</span></dt>
+                <dd>
+                    <span>{{virement.dateVirement}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleV01App.virement.candidat">Candidat</span></dt>
+                <dd>
+                    <div *ngIf="virement.candidatId">
+                        <a [routerLink]="['/candidat', virement.candidatId, 'view']">{{virement.candidatNom}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/virement', virement.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

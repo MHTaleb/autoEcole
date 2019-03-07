@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="entraineur">
+            <h2><span jhiTranslate="autoEcoleV01App.entraineur.detail.title">Entraineur</span> {{entraineur.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="autoEcoleV01App.entraineur.photo">Photo</span></dt>
+                <dd>
+                    <div *ngIf="entraineur.photo">
+                        <a (click)="openFile(entraineur.photoContentType, entraineur.photo)">
+                            <img [src]="'data:' + entraineur.photoContentType + ';base64,' + entraineur.photo" style="max-width: 100%;" alt="entraineur image"/>
+                        </a>
+                        {{entraineur.photoContentType}}, {{byteSize(entraineur.photo)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleV01App.entraineur.nom">Nom</span></dt>
+                <dd>
+                    <span>{{entraineur.nom}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleV01App.entraineur.prenom">Prenom</span></dt>
+                <dd>
+                    <span>{{entraineur.prenom}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleV01App.entraineur.telephone">Telephone</span></dt>
+                <dd>
+                    <span>{{entraineur.telephone}}</span>
+                </dd>
+                <dt><span jhiTranslate="autoEcoleV01App.entraineur.compte">Compte</span></dt>
+                <dd>
+                    {{entraineur.compteLogin}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/entraineur', entraineur.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
