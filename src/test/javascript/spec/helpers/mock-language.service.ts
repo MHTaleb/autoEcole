@@ -10,7 +10,7 @@ export class MockLanguageService extends SpyObject {
     constructor() {
         super(JhiLanguageService);
 
-        this.fakeResponse = 'fr';
+        this.fakeResponse = 'ar-ly';
         this.getCurrentSpy = this.spy('getCurrent').andReturn(Promise.resolve(this.fakeResponse));
     }
 

@@ -11,10 +11,8 @@
             "error": "Erreur"
         },
         "indicator": {
-            "binders": "Message broker",
             "diskSpace": "Espace disque",
             "mail": "Email",
-            "elasticsearch": "Elasticsearch",
             "db": "Base de données"
         },
         "table": {

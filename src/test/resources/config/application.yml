@@ -19,15 +19,6 @@ spring:
         name: autoEcoleV01
     cache:
         type: simple
-    cloud:
-        stream:
-            kafka:
-                binder:
-                    brokers: localhost
-                    zk-nodes: localhost
-            bindings:
-                output:
-                    destination: topic-jhipster
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:h2:mem:autoEcoleV01;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -54,11 +45,6 @@ spring:
             hibernate.generate_statistics: false
             hibernate.hbm2ddl.auto: validate
             hibernate.jdbc.time_zone: UTC
-    data:
-        elasticsearch:
-            properties:
-                path:
-                    home: target/elasticsearch
     liquibase:
         contexts: test
     mail:
@@ -101,7 +87,7 @@ jhipster:
         authentication:
             jwt:
                 # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-                base64-secret: OWE0NjA2YTk3YzFiODA3NTc5ZWE1ZTc2YzkzYWNmMjQxMmNkOWViZDlhNGNhODBkMmU2OTIyZjdiZDQ5OWNmY2FhNzI4YzAyMDkwZTE3NTI1ODMxMDY3ZDNkZWNlNzhhY2IzNjc3ZDA5NTA2NWUzZWUzYzllNjNkMmVkZTc0ZDk=
+                base64-secret: ZTAxNTBmYjVjNThhOTM2NTFmYjYyMDI1M2Y5ODlhMWE3OTNmZGQ0NWY2YzU3YTcwZWY0YWIzMTEwY2VmNzViZDVkNDNlYTM5YTkxZGM5MDM0ZDlkMDFmM2MyZTk3NTcyY2ZlNGNiNjUzOWY4M2JmNmU3ZTQ1MDc2Y2VmZjcxMmM=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics:

@@ -2,7 +2,7 @@
     "generator-jhipster": {
         "promptValues": {
             "packageName": "dz.talcorp.ae",
-            "nativeLanguage": "fr"
+            "nativeLanguage": "ar-ly"
         },
         "jhipsterVersion": "5.8.1",
         "applicationType": "monolith",
@@ -17,12 +17,12 @@
         "databaseType": "sql",
         "devDatabaseType": "mariadb",
         "prodDatabaseType": "mariadb",
-        "searchEngine": "elasticsearch",
-        "messageBroker": "kafka",
+        "searchEngine": false,
+        "messageBroker": false,
         "serviceDiscoveryType": false,
         "buildTool": "maven",
-        "enableSwaggerCodegen": true,
-        "jwtSecretKey": "OWE0NjA2YTk3YzFiODA3NTc5ZWE1ZTc2YzkzYWNmMjQxMmNkOWViZDlhNGNhODBkMmU2OTIyZjdiZDQ5OWNmY2FhNzI4YzAyMDkwZTE3NTI1ODMxMDY3ZDNkZWNlNzhhY2IzNjc3ZDA5NTA2NWUzZWUzYzllNjNkMmVkZTc0ZDk=",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "ZTAxNTBmYjVjNThhOTM2NTFmYjYyMDI1M2Y5ODlhMWE3OTNmZGQ0NWY2YzU3YTcwZWY0YWIzMTEwY2VmNzViZDVkNDNlYTM5YTkxZGM5MDM0ZDlkMDFmM2MyZTk3NTcyY2ZlNGNiNjUzOWY4M2JmNmU3ZTQ1MDc2Y2VmZjcxMmM=",
         "clientFramework": "angularX",
         "useSass": true,
         "clientPackageManager": "npm",
@@ -30,9 +30,18 @@
         "jhiPrefix": "jhi",
         "entitySuffix": "",
         "dtoSuffix": "DTO",
-        "otherModules": [],
+        "otherModules": [
+            {
+                "name": "generator-jhipster-swagger-cli",
+                "version": "3.0.1"
+            },
+            {
+                "name": "generator-jhipster-database-backup",
+                "version": "1.0.7"
+            }
+        ],
         "enableTranslation": true,
-        "nativeLanguage": "fr",
-        "languages": ["fr", "ar-ly"]
+        "nativeLanguage": "ar-ly",
+        "languages": ["ar-ly", "fr"]
     }
 }

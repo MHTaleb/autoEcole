@@ -11,10 +11,8 @@
             "error": "خطأ"
         },
         "indicator": {
-            "binders": "Message broker",
             "diskSpace": "مساحة القرص",
             "mail": "البريد الإلكتروني",
-            "elasticsearch": "Elasticsearch",
             "db": "قاعدة البيانات"
         },
         "table": {

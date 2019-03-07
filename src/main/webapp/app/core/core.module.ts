@@ -2,7 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
-import locale from '@angular/common/locales/fr';
+import locale from '@angular/common/locales/ar-ly';
 
 import { FindLanguageFromKeyPipe } from 'app/shared';
 @NgModule({
@@ -13,7 +13,7 @@ import { FindLanguageFromKeyPipe } from 'app/shared';
         Title,
         {
             provide: LOCALE_ID,
-            useValue: 'fr'
+            useValue: 'en'
         },
         FindLanguageFromKeyPipe,
         DatePipe
