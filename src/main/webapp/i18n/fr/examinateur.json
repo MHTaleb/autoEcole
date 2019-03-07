@@ -1,0 +1,24 @@
+{
+    "autoEcoleV01App": {
+        "examinateur": {
+            "home": {
+                "title": "Examinateurs",
+                "createLabel": "Créer un nouveau Examinateur",
+                "createOrEditLabel": "Créer ou éditer un Examinateur"
+            },
+            "created": "Un nouveau Examinateur a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Examinateur avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Examinateur avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Examinateur {{ id }} ?"
+            },
+            "detail": {
+                "title": "Examinateur"
+            },
+            "nom": "Nom",
+            "prenom": "Prenom",
+            "telephone": "Telephone",
+            "examen": "Examen"
+        }
+    }
+}

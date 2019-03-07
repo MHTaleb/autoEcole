@@ -36,9 +36,9 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mariadb://localhost:3306/autoEcoleV01?useLegacyDatetimeCode=false&serverTimezone=UTC
-        username: root
-        password:
+        url: jdbc:mariadb://localhost:3306/autoEcoleV01?useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExists=true
+        username: autoEcole
+        password: 123456
         hikari:
             poolName: Hikari
             auto-commit: false

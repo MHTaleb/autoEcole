@@ -1,0 +1,181 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-candidat-heading" jhiTranslate="autoEcoleV01App.candidat.home.createOrEditLabel">Create or edit a Candidat</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!candidat.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="candidat.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.photo" for="field_photo">Photo</label>
+                    <div>
+                        <img [src]="'data:' + candidat.photoContentType + ';base64,' + candidat.photo" style="max-height: 100px;" *ngIf="candidat.photo" alt="candidat image"/>
+                        <div *ngIf="candidat.photo" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{candidat.photoContentType}}, {{byteSize(candidat.photo)}}</span>
+                            <button type="button" (click)="clearInputImage('photo', 'photoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_photo" (change)="setFileData($event, candidat, 'photo', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="photo" id="field_photo"
+                        [(ngModel)]="candidat.photo" />
+                    <input type="hidden" class="form-control" name="photoContentType" id="field_photoContentType"
+                        [(ngModel)]="candidat.photoContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.nom" for="field_nom">Nom</label>
+                    <input type="text" class="form-control" name="nom" id="field_nom"
+                        [(ngModel)]="candidat.nom" required/>
+                    <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nom?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.prenom" for="field_prenom">Prenom</label>
+                    <input type="text" class="form-control" name="prenom" id="field_prenom"
+                        [(ngModel)]="candidat.prenom" required/>
+                    <div [hidden]="!(editForm.controls.prenom?.dirty && editForm.controls.prenom?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.prenom?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.pere" for="field_pere">Pere</label>
+                    <input type="text" class="form-control" name="pere" id="field_pere"
+                        [(ngModel)]="candidat.pere" required/>
+                    <div [hidden]="!(editForm.controls.pere?.dirty && editForm.controls.pere?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.pere?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.mere" for="field_mere">Mere</label>
+                    <input type="text" class="form-control" name="mere" id="field_mere"
+                        [(ngModel)]="candidat.mere" required/>
+                    <div [hidden]="!(editForm.controls.mere?.dirty && editForm.controls.mere?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mere?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.telephone" for="field_telephone">Telephone</label>
+                    <input type="text" class="form-control" name="telephone" id="field_telephone"
+                        [(ngModel)]="candidat.telephone" required pattern="[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]"/>
+                    <div [hidden]="!(editForm.controls.telephone?.dirty && editForm.controls.telephone?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.telephone?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.telephone?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Telephone' }">
+                            This field should follow pattern for "Telephone".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.dateInscription" for="field_dateInscription">Date Inscription</label>
+                    <div class="input-group">
+                        <input id="field_dateInscription" type="text" class="form-control" name="dateInscription" ngbDatepicker  #dateInscriptionDp="ngbDatepicker" [(ngModel)]="candidat.dateInscription"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateInscriptionDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dateInscription?.dirty && editForm.controls.dateInscription?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateInscription?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.dateNaissance" for="field_dateNaissance">Date Naissance</label>
+                    <div class="input-group">
+                        <input id="field_dateNaissance" type="text" class="form-control" name="dateNaissance" ngbDatepicker  #dateNaissanceDp="ngbDatepicker" [(ngModel)]="candidat.dateNaissance"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateNaissanceDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dateNaissance?.dirty && editForm.controls.dateNaissance?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateNaissance?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.lieuNaissance" for="field_lieuNaissance">Lieu Naissance</label>
+                    <input type="text" class="form-control" name="lieuNaissance" id="field_lieuNaissance"
+                        [(ngModel)]="candidat.lieuNaissance" required/>
+                    <div [hidden]="!(editForm.controls.lieuNaissance?.dirty && editForm.controls.lieuNaissance?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.lieuNaissance?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.nationalite" for="field_nationalite">Nationalite</label>
+                    <select class="form-control" name="nationalite" [(ngModel)]="candidat.nationalite" id="field_nationalite"  required>
+                        <option value="ALGERIE">{{'autoEcoleV01App.Nationalite.ALGERIE' | translate}}</option>
+                        <option value="MARROC">{{'autoEcoleV01App.Nationalite.MARROC' | translate}}</option>
+                        <option value="TUNISIE">{{'autoEcoleV01App.Nationalite.TUNISIE' | translate}}</option>
+                        <option value="FRANCE">{{'autoEcoleV01App.Nationalite.FRANCE' | translate}}</option>
+                        <option value="AUTRE">{{'autoEcoleV01App.Nationalite.AUTRE' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.nationalite?.dirty && editForm.controls.nationalite?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nationalite?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.adresse" for="field_adresse">Adresse</label>
+                    <input type="text" class="form-control" name="adresse" id="field_adresse"
+                        [(ngModel)]="candidat.adresse" required/>
+                    <div [hidden]="!(editForm.controls.adresse?.dirty && editForm.controls.adresse?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.adresse?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.candidat.nid" for="field_nid">Nid</label>
+                    <input type="text" class="form-control" name="nid" id="field_nid"
+                        [(ngModel)]="candidat.nid" required/>
+                    <div [hidden]="!(editForm.controls.nid?.dirty && editForm.controls.nid?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nid?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

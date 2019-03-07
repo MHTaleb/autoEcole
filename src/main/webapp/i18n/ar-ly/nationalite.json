@@ -1,0 +1,12 @@
+{
+    "autoEcoleV01App": {
+        "Nationalite": {
+            "null": "",
+            "ALGERIE": "ALGERIE",
+            "MARROC": "MARROC",
+            "TUNISIE": "TUNISIE",
+            "FRANCE": "FRANCE",
+            "AUTRE": "AUTRE"
+        }
+    }
+}
