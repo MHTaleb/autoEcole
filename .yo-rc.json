@@ -22,24 +22,15 @@
         "serviceDiscoveryType": false,
         "buildTool": "maven",
         "enableSwaggerCodegen": false,
-        "jwtSecretKey": "ZTAxNTBmYjVjNThhOTM2NTFmYjYyMDI1M2Y5ODlhMWE3OTNmZGQ0NWY2YzU3YTcwZWY0YWIzMTEwY2VmNzViZDVkNDNlYTM5YTkxZGM5MDM0ZDlkMDFmM2MyZTk3NTcyY2ZlNGNiNjUzOWY4M2JmNmU3ZTQ1MDc2Y2VmZjcxMmM=",
+        "jwtSecretKey": "MDE5YjNkMGZiODJjMTVlMTY0M2VlMDE5NGIxZGUxNDlhYTA5NDMyMTVmNjJjMmY4MWFmMWQ4YmI3NTQ4YzUyMzMyZWM0ZTZlNWRiOTQ5YjhiY2M5OTgyNGEwMDI2ZmU2ZTM4ZjRjMDE3NjhhNGExOTBjMGI0YTBmMTQ2ZDZiZTE=",
         "clientFramework": "angularX",
-        "useSass": true,
+        "useSass": false,
         "clientPackageManager": "npm",
         "testFrameworks": ["gatling", "cucumber", "protractor"],
         "jhiPrefix": "jhi",
         "entitySuffix": "",
         "dtoSuffix": "DTO",
-        "otherModules": [
-            {
-                "name": "generator-jhipster-swagger-cli",
-                "version": "3.0.1"
-            },
-            {
-                "name": "generator-jhipster-database-backup",
-                "version": "1.0.7"
-            }
-        ],
+        "otherModules": [],
         "enableTranslation": true,
         "nativeLanguage": "ar-ly",
         "languages": ["ar-ly", "fr"]

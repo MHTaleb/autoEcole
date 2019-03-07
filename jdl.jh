@@ -12,7 +12,7 @@ entity Ecole{
 
 entity Lesson {
 	typeLesson TypeLesson required
-	dateLesson Instant required
+	dateLesson Instant required 
 	etatLesson EtatLesson required
 	observation TextBlob
 }

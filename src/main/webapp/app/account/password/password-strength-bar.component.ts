@@ -14,7 +14,7 @@ import { Component, ElementRef, Input, Renderer } from '@angular/core';
             </ul>
         </div>
     `,
-    styleUrls: ['password-strength-bar.scss']
+    styleUrls: ['password-strength-bar.css']
 })
 export class PasswordStrengthBarComponent {
     colors = ['#F00', '#F90', '#FF0', '#9F0', '#0F0'];
