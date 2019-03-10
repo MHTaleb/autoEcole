@@ -13,7 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 /**
  * Service Implementation for managing Lesson.
@@ -57,10 +60,8 @@ public class LessonServiceImpl implements LessonService {
     @Transactional(readOnly = true)
     public Page<LessonDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Lessons");
-        return lessonRepository.findAll(pageable)
-            .map(lessonMapper::toDto);
+        return lessonRepository.findAll(pageable).map(lessonMapper::toDto);
     }
-
 
     /**
      * Get one lesson by id.
@@ -72,8 +73,7 @@ public class LessonServiceImpl implements LessonService {
     @Transactional(readOnly = true)
     public Optional<LessonDTO> findOne(Long id) {
         log.debug("Request to get Lesson : {}", id);
-        return lessonRepository.findById(id)
-            .map(lessonMapper::toDto);
+        return lessonRepository.findById(id).map(lessonMapper::toDto);
     }
 
     /**
@@ -83,6 +83,25 @@ public class LessonServiceImpl implements LessonService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Lesson : {}", id);        lessonRepository.deleteById(id);
+        log.debug("Request to delete Lesson : {}", id);
+        lessonRepository.deleteById(id);
+    }
+
+
+    /**
+     * Check if lesson have enought time and dont colide with other lessons
+     * this checks if no lesson starts 45 min befor this one and no lesson start 45min after this one
+     * 
+     * @param lessonDTO the desired creation lesson
+     */
+    @Override
+    public boolean checkLessonTime(@Valid LessonDTO lessonDTO) {
+        log.debug("Request to check Lesson valid time: {}", lessonDTO);
+        Lesson lesson = lessonMapper.toEntity(lessonDTO);
+        Instant min = lesson.getDateLesson().minusSeconds(2700);
+        Instant max = lesson.getDateLesson().plusSeconds(2700);
+        boolean isTimeEnaugh = lessonRepository.countByDateLessonBetween(min, max) == 0;
+        return isTimeEnaugh;
+        
     }
 }

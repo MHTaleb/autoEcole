@@ -1,6 +1,9 @@
 package dz.talcorp.ae.repository;
 
 import dz.talcorp.ae.domain.Lesson;
+
+import java.time.Instant;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +14,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
-
+    long countByDateLessonBetween(Instant min,Instant max);
 }

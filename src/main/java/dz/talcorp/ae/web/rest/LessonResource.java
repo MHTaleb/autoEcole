@@ -39,7 +39,7 @@ public class LessonResource {
     }
 
     /**
-     * POST  /lessons : Create a new lesson.
+     * POST  /lessons : Create a new lesson of 45 min.
      *
      * @param lessonDTO the lessonDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new lessonDTO, or with status 400 (Bad Request) if the lesson has already an ID
@@ -50,6 +50,9 @@ public class LessonResource {
         log.debug("REST request to save Lesson : {}", lessonDTO);
         if (lessonDTO.getId() != null) {
             throw new BadRequestAlertException("A new lesson cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if(!lessonService.checkLessonTime(lessonDTO)){
+            throw new BadRequestAlertException("Another lesson exists with start time greater or less 45 min than this lesson ","","");
         }
         LessonDTO result = lessonService.save(lessonDTO);
         return ResponseEntity.created(new URI("/api/lessons/" + result.getId()))
