@@ -5,13 +5,15 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="autoEcoleV01App.ecole.nomEcole">Nom Ecole</span></dt>
+                <dt><span jhiTranslate="autoEcoleV01App.ecole.titreEcole">Titre Ecole</span></dt>
                 <dd>
-                    <span>{{ecole.nomEcole}}</span>
+                    <span>{{ecole.titreEcole}}</span>
                 </dd>
                 <dt><span jhiTranslate="autoEcoleV01App.ecole.president">President</span></dt>
                 <dd>
-                    <span>{{ecole.president}}</span>
+                    <div *ngIf="ecole.presidentId">
+                        <a [routerLink]="['/entraineur', ecole.presidentId, 'view']">{{ecole.presidentNom}}</a>
+                    </div>
                 </dd>
             </dl>
 

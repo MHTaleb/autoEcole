@@ -72,8 +72,7 @@ class EcoleGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "nomEcole":"SAMPLE_TEXT"
-                , "president":"SAMPLE_TEXT"
+                , "titreEcole":"SAMPLE_TEXT"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_ecole_url"))).exitHereIfFailed

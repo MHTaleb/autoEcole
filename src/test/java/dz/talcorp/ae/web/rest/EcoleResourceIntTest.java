@@ -3,6 +3,7 @@ package dz.talcorp.ae.web.rest;
 import dz.talcorp.ae.AutoEcoleV01App;
 
 import dz.talcorp.ae.domain.Ecole;
+import dz.talcorp.ae.domain.Entraineur;
 import dz.talcorp.ae.repository.EcoleRepository;
 import dz.talcorp.ae.service.EcoleService;
 import dz.talcorp.ae.service.dto.EcoleDTO;
@@ -43,11 +44,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AutoEcoleV01App.class)
 public class EcoleResourceIntTest {
 
-    private static final String DEFAULT_NOM_ECOLE = "AAAAAAAAAA";
-    private static final String UPDATED_NOM_ECOLE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PRESIDENT = "AAAAAAAAAA";
-    private static final String UPDATED_PRESIDENT = "BBBBBBBBBB";
+    private static final String DEFAULT_TITRE_ECOLE = "AAAAAAAAAA";
+    private static final String UPDATED_TITRE_ECOLE = "BBBBBBBBBB";
 
     @Autowired
     private EcoleRepository ecoleRepository;
@@ -97,8 +95,12 @@ public class EcoleResourceIntTest {
      */
     public static Ecole createEntity(EntityManager em) {
         Ecole ecole = new Ecole()
-            .nomEcole(DEFAULT_NOM_ECOLE)
-            .president(DEFAULT_PRESIDENT);
+            .titreEcole(DEFAULT_TITRE_ECOLE);
+        // Add required entity
+        Entraineur entraineur = EntraineurResourceIntTest.createEntity(em);
+        em.persist(entraineur);
+        em.flush();
+        ecole.setPresident(entraineur);
         return ecole;
     }
 
@@ -123,8 +125,7 @@ public class EcoleResourceIntTest {
         List<Ecole> ecoleList = ecoleRepository.findAll();
         assertThat(ecoleList).hasSize(databaseSizeBeforeCreate + 1);
         Ecole testEcole = ecoleList.get(ecoleList.size() - 1);
-        assertThat(testEcole.getNomEcole()).isEqualTo(DEFAULT_NOM_ECOLE);
-        assertThat(testEcole.getPresident()).isEqualTo(DEFAULT_PRESIDENT);
+        assertThat(testEcole.getTitreEcole()).isEqualTo(DEFAULT_TITRE_ECOLE);
     }
 
     @Test
@@ -149,29 +150,10 @@ public class EcoleResourceIntTest {
 
     @Test
     @Transactional
-    public void checkNomEcoleIsRequired() throws Exception {
+    public void checkTitreEcoleIsRequired() throws Exception {
         int databaseSizeBeforeTest = ecoleRepository.findAll().size();
         // set the field null
-        ecole.setNomEcole(null);
-
-        // Create the Ecole, which fails.
-        EcoleDTO ecoleDTO = ecoleMapper.toDto(ecole);
-
-        restEcoleMockMvc.perform(post("/api/ecoles")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(ecoleDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Ecole> ecoleList = ecoleRepository.findAll();
-        assertThat(ecoleList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPresidentIsRequired() throws Exception {
-        int databaseSizeBeforeTest = ecoleRepository.findAll().size();
-        // set the field null
-        ecole.setPresident(null);
+        ecole.setTitreEcole(null);
 
         // Create the Ecole, which fails.
         EcoleDTO ecoleDTO = ecoleMapper.toDto(ecole);
@@ -196,8 +178,7 @@ public class EcoleResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(ecole.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nomEcole").value(hasItem(DEFAULT_NOM_ECOLE.toString())))
-            .andExpect(jsonPath("$.[*].president").value(hasItem(DEFAULT_PRESIDENT.toString())));
+            .andExpect(jsonPath("$.[*].titreEcole").value(hasItem(DEFAULT_TITRE_ECOLE.toString())));
     }
     
     @Test
@@ -211,8 +192,7 @@ public class EcoleResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(ecole.getId().intValue()))
-            .andExpect(jsonPath("$.nomEcole").value(DEFAULT_NOM_ECOLE.toString()))
-            .andExpect(jsonPath("$.president").value(DEFAULT_PRESIDENT.toString()));
+            .andExpect(jsonPath("$.titreEcole").value(DEFAULT_TITRE_ECOLE.toString()));
     }
 
     @Test
@@ -236,8 +216,7 @@ public class EcoleResourceIntTest {
         // Disconnect from session so that the updates on updatedEcole are not directly saved in db
         em.detach(updatedEcole);
         updatedEcole
-            .nomEcole(UPDATED_NOM_ECOLE)
-            .president(UPDATED_PRESIDENT);
+            .titreEcole(UPDATED_TITRE_ECOLE);
         EcoleDTO ecoleDTO = ecoleMapper.toDto(updatedEcole);
 
         restEcoleMockMvc.perform(put("/api/ecoles")
@@ -249,8 +228,7 @@ public class EcoleResourceIntTest {
         List<Ecole> ecoleList = ecoleRepository.findAll();
         assertThat(ecoleList).hasSize(databaseSizeBeforeUpdate);
         Ecole testEcole = ecoleList.get(ecoleList.size() - 1);
-        assertThat(testEcole.getNomEcole()).isEqualTo(UPDATED_NOM_ECOLE);
-        assertThat(testEcole.getPresident()).isEqualTo(UPDATED_PRESIDENT);
+        assertThat(testEcole.getTitreEcole()).isEqualTo(UPDATED_TITRE_ECOLE);
     }
 
     @Test

@@ -1,29 +1,35 @@
 {
-    "name": "Ecole",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "president",
+            "otherEntityName": "entraineur",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nom",
+            "otherEntityRelationshipName": "ecole",
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
     "fields": [
         {
-            "fieldName": "nomEcole",
+            "fieldName": "titreEcole",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "president",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
+                "required",
+                "unique"
             ]
         }
     ],
-    "relationships": [],
     "changelogDate": "20190307185256",
-    "entityTableName": "ecole",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "ecole",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

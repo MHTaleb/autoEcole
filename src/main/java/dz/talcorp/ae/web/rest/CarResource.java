@@ -51,6 +51,9 @@ public class CarResource {
         if (carDTO.getId() != null) {
             throw new BadRequestAlertException("A new car cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if(carService.checkMatriculeUnicity(carDTO.getMatricule())){
+            throw new BadRequestAlertException("duplicate plate number for car creation", ENTITY_NAME, "car.EK_C_01");
+        }
         CarDTO result = carService.save(carDTO);
         return ResponseEntity.created(new URI("/api/cars/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -71,6 +74,9 @@ public class CarResource {
         log.debug("REST request to update Car : {}", carDTO);
         if (carDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if(carService.checkMatriculeUnicity(carDTO.getMatricule())){
+            throw new BadRequestAlertException("duplicate plate number for car creation", ENTITY_NAME, "car.EK_C_01");
         }
         CarDTO result = carService.save(carDTO);
         return ResponseEntity.ok()
@@ -114,6 +120,12 @@ public class CarResource {
     @DeleteMapping("/cars/{id}")
     public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
         log.debug("REST request to delete Car : {}", id);
+
+        //check car relation before delete
+        String errorKey = carService.checkCarRelations(id); 
+        if(!errorKey.isEmpty()){
+            throw new BadRequestAlertException("can't remove car due to realtion with other entities", ENTITY_NAME, errorKey);
+        }
         carService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

@@ -11,7 +11,7 @@ describe('Ecole e2e test', () => {
     let signInPage: SignInPage;
     let ecoleUpdatePage: EcoleUpdatePage;
     let ecoleComponentsPage: EcoleComponentsPage;
-    let ecoleDeleteDialog: EcoleDeleteDialog;
+    /*let ecoleDeleteDialog: EcoleDeleteDialog;*/
 
     before(async () => {
         await browser.get('/');
@@ -35,29 +35,32 @@ describe('Ecole e2e test', () => {
         await ecoleUpdatePage.cancel();
     });
 
-    it('should create and save Ecoles', async () => {
+    /* it('should create and save Ecoles', async () => {
         const nbButtonsBeforeCreate = await ecoleComponentsPage.countDeleteButtons();
 
         await ecoleComponentsPage.clickOnCreateButton();
-        await promise.all([ecoleUpdatePage.setNomEcoleInput('nomEcole'), ecoleUpdatePage.setPresidentInput('president')]);
-        expect(await ecoleUpdatePage.getNomEcoleInput()).to.eq('nomEcole');
-        expect(await ecoleUpdatePage.getPresidentInput()).to.eq('president');
+        await promise.all([
+            ecoleUpdatePage.setTitreEcoleInput('titreEcole'),
+            ecoleUpdatePage.presidentSelectLastOption(),
+        ]);
+        expect(await ecoleUpdatePage.getTitreEcoleInput()).to.eq('titreEcole');
         await ecoleUpdatePage.save();
         expect(await ecoleUpdatePage.getSaveButton().isPresent()).to.be.false;
 
         expect(await ecoleComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
-    });
+    });*/
 
-    it('should delete last Ecole', async () => {
+    /* it('should delete last Ecole', async () => {
         const nbButtonsBeforeDelete = await ecoleComponentsPage.countDeleteButtons();
         await ecoleComponentsPage.clickOnLastDeleteButton();
 
         ecoleDeleteDialog = new EcoleDeleteDialog();
-        expect(await ecoleDeleteDialog.getDialogTitle()).to.eq('autoEcoleV01App.ecole.delete.question');
+        expect(await ecoleDeleteDialog.getDialogTitle())
+            .to.eq('autoEcoleV01App.ecole.delete.question');
         await ecoleDeleteDialog.clickOnConfirmButton();
 
         expect(await ecoleComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
-    });
+    });*/
 
     after(async () => {
         await navBarPage.autoSignOut();

@@ -43,4 +43,8 @@ public interface CarService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    boolean checkMatriculeUnicity(String matricule);
+
+	String checkCarRelations(Long id);
 }

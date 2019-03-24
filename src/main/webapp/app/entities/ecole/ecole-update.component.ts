@@ -3,8 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { JhiAlertService } from 'ng-jhipster';
 import { IEcole } from 'app/shared/model/ecole.model';
 import { EcoleService } from './ecole.service';
+import { IEntraineur } from 'app/shared/model/entraineur.model';
+import { EntraineurService } from 'app/entities/entraineur';
 
 @Component({
     selector: 'jhi-ecole-update',
@@ -14,13 +17,27 @@ export class EcoleUpdateComponent implements OnInit {
     ecole: IEcole;
     isSaving: boolean;
 
-    constructor(protected ecoleService: EcoleService, protected activatedRoute: ActivatedRoute) {}
+    entraineurs: IEntraineur[];
+
+    constructor(
+        protected jhiAlertService: JhiAlertService,
+        protected ecoleService: EcoleService,
+        protected entraineurService: EntraineurService,
+        protected activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ ecole }) => {
             this.ecole = ecole;
         });
+        this.entraineurService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IEntraineur[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IEntraineur[]>) => response.body)
+            )
+            .subscribe((res: IEntraineur[]) => (this.entraineurs = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -47,5 +64,13 @@ export class EcoleUpdateComponent implements OnInit {
 
     protected onSaveError() {
         this.isSaving = false;
+    }
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackEntraineurById(index: number, item: IEntraineur) {
+        return item.id;
     }
 }

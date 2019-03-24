@@ -6,16 +6,18 @@
             "home": "Accueil",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
-                "main": "Entités",
-                "ecole": "Ecole",
-                "lesson": "Lesson",
-                "car": "Car",
-                "entraineur": "Entraineur",
-                "candidat": "Candidat",
+                "main": "Operations",
+                "ecole": "Gestion d'école",
+                "lesson": "Gestion des leçons",
+                "car": "Getsion de voiture",
+                "entraineur": "Gestion des moniteurs",
+                "candidat": "Gestion des candidats",
                 "virement": "Virement",
                 "examinateur": "Examinateur",
                 "examen": "Examen",
                 "examenInfo": "Examen Info",
+                "ecole": "Ecole",
+                "entraineur": "Entraineur",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -129,6 +131,7 @@
             "datetimelocal": "Ce champ doit être une date et une heure."
         }
     },
+
     "error": {
         "internalServerError": "Erreur interne du serveur",
         "server.not.reachable": "Serveur inaccessible",
@@ -140,5 +143,5 @@
         "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !",
         "idnull": "Invalid ID"
     },
-    "footer": "Ceci est votre pied de page"
+    "footer": "TalcorpDZ tout droit réservé"
 }

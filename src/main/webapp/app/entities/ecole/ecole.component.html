@@ -15,16 +15,20 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nomEcole"><span jhiTranslate="autoEcoleV01App.ecole.nomEcole">Nom Ecole</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="president"><span jhiTranslate="autoEcoleV01App.ecole.president">President</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="titreEcole"><span jhiTranslate="autoEcoleV01App.ecole.titreEcole">Titre Ecole</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="presidentNom"><span jhiTranslate="autoEcoleV01App.ecole.president">President</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let ecole of ecoles ;trackBy: trackId">
                 <td><a [routerLink]="['/ecole', ecole.id, 'view' ]">{{ecole.id}}</a></td>
-                <td>{{ecole.nomEcole}}</td>
-                <td>{{ecole.president}}</td>
+                <td>{{ecole.titreEcole}}</td>
+                <td>
+                    <div *ngIf="ecole.presidentId">
+                        <a [routerLink]="['../entraineur', ecole.presidentId , 'view' ]" >{{ecole.presidentNom}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -96,7 +96,7 @@ export class LessonUpdateComponent implements OnInit {
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<ILesson>>) {
-        result.subscribe((res: HttpResponse<ILesson>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<ILesson>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError(res.message));
     }
 
     protected onSaveSuccess() {
@@ -104,7 +104,7 @@ export class LessonUpdateComponent implements OnInit {
         this.previousState();
     }
 
-    protected onSaveError() {
+    protected onSaveError(errorMessage: string) {
         this.isSaving = false;
     }
 

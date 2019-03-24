@@ -44,7 +44,7 @@ public class Entraineur implements Serializable {
 
     @NotNull
     @Pattern(regexp = "[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]")
-    @Column(name = "telephone", nullable = false)
+    @Column(name = "telephone", nullable = false, unique = true)
     private String telephone;
 
     @OneToOne

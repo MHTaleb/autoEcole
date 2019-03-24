@@ -22,11 +22,11 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="nom_ecole" type="varchar(255)">
-                <constraints nullable="false" />
+            <column name="titre_ecole" type="varchar(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_ecole_titre_ecole" />
             </column>
 
-            <column name="president" type="varchar(255)">
+            <column name="president_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 

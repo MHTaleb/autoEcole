@@ -1,28 +1,41 @@
 package dz.talcorp.ae.web.rest;
-import dz.talcorp.ae.service.EcoleService;
-import dz.talcorp.ae.web.rest.errors.BadRequestAlertException;
-import dz.talcorp.ae.web.rest.util.HeaderUtil;
-import dz.talcorp.ae.web.rest.util.PaginationUtil;
-import dz.talcorp.ae.service.dto.EcoleDTO;
-import io.github.jhipster.web.util.ResponseUtil;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
+import dz.talcorp.ae.service.EcoleService;
+import dz.talcorp.ae.service.dto.EcoleDTO;
+import dz.talcorp.ae.web.rest.errors.BadRequestAlertException;
+import dz.talcorp.ae.web.rest.util.HeaderUtil;
+import dz.talcorp.ae.web.rest.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing Ecole.
+ * 
+ * in the next version, I want to link every candidat and user to the current loged in school, this way 
+ * I will enable multi school management, however in this version one school by instance
+ * lightwigh version
+ * 
  */
 @RestController
 @RequestMapping("/api")
@@ -51,6 +64,10 @@ public class EcoleResource {
         if (ecoleDTO.getId() != null) {
             throw new BadRequestAlertException("A new ecole cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        // check titreEcole unicity
+        if(ecoleService.checkTitreUnique(ecoleDTO.getTitreEcole())){
+            throw new BadRequestAlertException("ecole creation error : ecole titre duplicate", ENTITY_NAME, "ecole.EK_C_01");
+        }
         EcoleDTO result = ecoleService.save(ecoleDTO);
         return ResponseEntity.created(new URI("/api/ecoles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -71,6 +88,10 @@ public class EcoleResource {
         log.debug("REST request to update Ecole : {}", ecoleDTO);
         if (ecoleDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        // check titreEcole unicity
+        if(ecoleService.checkTitreUnique(ecoleDTO.getTitreEcole())){
+            throw new BadRequestAlertException("ecole creation error : ecole titre duplicate", ENTITY_NAME, "ecole.EK_C_01");
         }
         EcoleDTO result = ecoleService.save(ecoleDTO);
         return ResponseEntity.ok()
@@ -114,6 +135,10 @@ public class EcoleResource {
     @DeleteMapping("/ecoles/{id}")
     public ResponseEntity<Void> deleteEcole(@PathVariable Long id) {
         log.debug("REST request to delete Ecole : {}", id);
+        String errorKey = ecoleService.checkEcoleBeforeDelete(id);
+        if(!errorKey.isEmpty()){
+            throw new BadRequestAlertException("ecole supression error : ecole is not empty of data", ENTITY_NAME, errorKey);
+        }
         ecoleService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

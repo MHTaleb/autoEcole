@@ -43,4 +43,14 @@ public interface EntraineurService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * check if the value for the field telephone is not already used
+     */
+	boolean checkUniquePhoneNumber(String telephone);
+
+    /**
+     * check validation before deletion
+     */
+	String checkBeforeDelete(Long id);
 }

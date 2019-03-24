@@ -51,6 +51,9 @@ public class EntraineurResource {
         if (entraineurDTO.getId() != null) {
             throw new BadRequestAlertException("A new entraineur cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if(entraineurService.checkUniquePhoneNumber(entraineurDTO.getTelephone())){
+            throw new BadRequestAlertException("can't save new trainer: phone number unique constraint violation", ENTITY_NAME, "entraineur.EK_C_01");
+        }
         EntraineurDTO result = entraineurService.save(entraineurDTO);
         return ResponseEntity.created(new URI("/api/entraineurs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -71,6 +74,9 @@ public class EntraineurResource {
         log.debug("REST request to update Entraineur : {}", entraineurDTO);
         if (entraineurDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if(entraineurService.checkUniquePhoneNumber(entraineurDTO.getTelephone())){
+            throw new BadRequestAlertException("can't save new trainer: phone number unique constraint violation", ENTITY_NAME, "entraineur.EK_C_01");
         }
         EntraineurDTO result = entraineurService.save(entraineurDTO);
         return ResponseEntity.ok()
@@ -114,6 +120,10 @@ public class EntraineurResource {
     @DeleteMapping("/entraineurs/{id}")
     public ResponseEntity<Void> deleteEntraineur(@PathVariable Long id) {
         log.debug("REST request to delete Entraineur : {}", id);
+        String errorKey = "";
+        if((errorKey = entraineurService.checkBeforeDelete(id)).isEmpty()){
+            throw new BadRequestAlertException("can't delete trainer: delete constraint violation "+errorKey, ENTITY_NAME, errorKey);
+        }
         entraineurService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

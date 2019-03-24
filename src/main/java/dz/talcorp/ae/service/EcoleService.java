@@ -43,4 +43,14 @@ public interface EcoleService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * check if the field titreEcole is unique
+     */
+	boolean checkTitreUnique(String titreEcole);
+
+    /**
+     * check if the current school is removable
+     */
+	String checkEcoleBeforeDelete(Long id);
 }

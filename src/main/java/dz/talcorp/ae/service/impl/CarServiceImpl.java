@@ -57,10 +57,8 @@ public class CarServiceImpl implements CarService {
     @Transactional(readOnly = true)
     public Page<CarDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Cars");
-        return carRepository.findAll(pageable)
-            .map(carMapper::toDto);
+        return carRepository.findAll(pageable).map(carMapper::toDto);
     }
-
 
     /**
      * Get one car by id.
@@ -72,8 +70,7 @@ public class CarServiceImpl implements CarService {
     @Transactional(readOnly = true)
     public Optional<CarDTO> findOne(Long id) {
         log.debug("Request to get Car : {}", id);
-        return carRepository.findById(id)
-            .map(carMapper::toDto);
+        return carRepository.findById(id).map(carMapper::toDto);
     }
 
     /**
@@ -83,6 +80,37 @@ public class CarServiceImpl implements CarService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Car : {}", id);        carRepository.deleteById(id);
+        log.debug("Request to delete Car : {}", id);
+        carRepository.deleteById(id);
+    }
+
+    /**
+     * check if a matricule is not used in another car
+     * 
+     * @return true if the matricule is already used
+     */
+    @Override
+    public boolean checkMatriculeUnicity(String matricule) {
+        return carRepository.findFirstByMatricule(matricule).isPresent();
+    }
+
+
+    /**
+     * this is used to check errors for deletion of a car
+     * 
+     * @return "car.EK_R_01" if a car have an exam entity relation
+     * @return "car.EK_R_02" if a car have a lesson entity relation (creno,circulation)
+     */
+    @Override
+    public String checkCarRelations(Long id) {
+        Optional<Car> optionalCar = carRepository.findById(id);
+        String errorKey = "";
+        if (optionalCar.isPresent()) {
+            Car car = optionalCar.get();
+            errorKey = car.getExamen().size() > 0 ? "car.EK_R_01" : "";
+            if (errorKey.isEmpty())
+                errorKey = car.getLessons().size() > 0 ? "car.EK_R_02" : "";
+        }
+        return "";
     }
 }

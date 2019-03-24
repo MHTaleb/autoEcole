@@ -46,6 +46,16 @@ public interface LessonService {
      */
     void delete(Long id);
 
+    /**
+     * check if a lesson time is free
+     * 
+     */
 	boolean checkLessonTime(@Valid LessonDTO lessonDTO);
+
+    /**
+     * check if candidat have one lesson in the same date hour
+     *
+     */
+	String checkLessonCandidat(@Valid LessonDTO lessonDTO);
 
 }

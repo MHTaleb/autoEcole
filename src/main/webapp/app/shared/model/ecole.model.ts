@@ -1,9 +1,10 @@
 export interface IEcole {
     id?: number;
-    nomEcole?: string;
-    president?: string;
+    titreEcole?: string;
+    presidentNom?: string;
+    presidentId?: number;
 }
 
 export class Ecole implements IEcole {
-    constructor(public id?: number, public nomEcole?: string, public president?: string) {}
+    constructor(public id?: number, public titreEcole?: string, public presidentNom?: string, public presidentId?: number) {}
 }

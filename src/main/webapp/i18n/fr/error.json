@@ -9,6 +9,31 @@
             "500": "Erreur interne du serveur."
         },
         "concurrencyFailure": "Un autre utilisateur a modifié ces données en même temps que vous. Vos changements n'ont pas été sauvegardés.",
-        "validation": "Erreur de validation côté serveur."
+        "validation": "Erreur de validation côté serveur.",
+        "lesson": {
+            "EK_L_C01": "<p> Operation impossible: nombre maximal de lesson attein pour la date {{param0}} </br> veuillez changer sois l heur ou changer la date </p>",
+            "EK_L_C02": "<p> Operation impossible : veuillez changer l'heur de la lesson pour le candidat {{param0}} </br>car une lesson dans une heur proche existe</p>"
+        },
+        "candidat": {
+            "EK_DLR_01": "Supression de cnadidat impossible : le candidat choisi a une ou plusieurs lessons enregistrées",
+            "EK_DER_02": "Supression de cnadidat impossible : le candidat choisi a une ou plusieurs examens enregistrées"
+        },
+        "car": {
+            "EK_C_01": "Matricule deja utiliser, veuillez reconfirmer SVP",
+            "EK_R_01": "Erreur supression impossible: </br>cette voiture est deja utiliser dans un examen",
+            "EK_R_02": "Erreur supression impossible: </br>cette voiture est deja utiliser dans un cours de creno ou de circulation"
+        },
+        "ecole": {
+            "EK_C_01": "Titre de l'école déja utiliser, veuillez le changer SVP",
+            "EK_R_01": "Impossible de supprimer l'école du à l'éxistance d'instance de moniteur inscrit",
+            "EK_R_02": "Impossible de supprimer l'école du à l'éxistance d'instance de candidat inscrit",
+            "EK_R_03": "Impossible de supprimer l'école du à l'éxistance d'instance d'examen planifiés ou archivés",
+            "EK_R_04": "Impossible de supprimer l'école du à l'éxistance d'instance de leçon planifiés ou archivés"
+        },
+        "entraineur": {
+            "EK_C_01": "Numéro de téléphone deja utiliser, veuillez reconfirmer SVP",
+            "EK_D_01": "Impossible de suprimmer l'entraineur car il a des seances recues ou planifiées",
+            "EK_D_02": "Impossible de suprimmer l'entraineur car il est president de cette auto-ecole"
+        }
     }
 }

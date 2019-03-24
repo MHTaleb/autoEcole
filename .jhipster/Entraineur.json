@@ -25,9 +25,10 @@
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
+                "unique",
                 "pattern"
             ],
-            "fieldValidateRulesPattern": "[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]"
+            "fieldValidateRulesPattern": "[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]"            
         }
     ],
     "relationships": [

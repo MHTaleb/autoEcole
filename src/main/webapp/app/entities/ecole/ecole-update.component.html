@@ -10,28 +10,30 @@
                         [(ngModel)]="ecole.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.ecole.nomEcole" for="field_nomEcole">Nom Ecole</label>
-                    <input type="text" class="form-control" name="nomEcole" id="field_nomEcole"
-                        [(ngModel)]="ecole.nomEcole" required/>
-                    <div [hidden]="!(editForm.controls.nomEcole?.dirty && editForm.controls.nomEcole?.invalid)">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.ecole.titreEcole" for="field_titreEcole">Titre Ecole</label>
+                    <input type="text" class="form-control" name="titreEcole" id="field_titreEcole"
+                        [(ngModel)]="ecole.titreEcole" required/>
+                    <div [hidden]="!(editForm.controls.titreEcole?.dirty && editForm.controls.titreEcole?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nomEcole?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.ecole.president" for="field_president">President</label>
-                    <input type="text" class="form-control" name="president" id="field_president"
-                        [(ngModel)]="ecole.president" required/>
-                    <div [hidden]="!(editForm.controls.president?.dirty && editForm.controls.president?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.president?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.titreEcole?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="autoEcoleV01App.ecole.president" for="field_president">President</label>
+                    <select class="form-control" id="field_president" name="president" [(ngModel)]="ecole.presidentId"  required>
+                        <option *ngIf="!editForm.value.president" [ngValue]="null" selected></option>
+                        <option [ngValue]="entraineurOption.id" *ngFor="let entraineurOption of entraineurs; trackBy: trackEntraineurById">{{entraineurOption.nom}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.president?.dirty && editForm.controls.president?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.president?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

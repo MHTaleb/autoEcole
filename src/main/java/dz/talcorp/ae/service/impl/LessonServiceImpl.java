@@ -1,7 +1,10 @@
 package dz.talcorp.ae.service.impl;
 
 import dz.talcorp.ae.service.LessonService;
+import dz.talcorp.ae.domain.Candidat;
 import dz.talcorp.ae.domain.Lesson;
+import dz.talcorp.ae.domain.enumeration.TypeLesson;
+import dz.talcorp.ae.repository.CandidatRepository;
 import dz.talcorp.ae.repository.LessonRepository;
 import dz.talcorp.ae.service.dto.LessonDTO;
 import dz.talcorp.ae.service.mapper.LessonMapper;
@@ -31,9 +34,12 @@ public class LessonServiceImpl implements LessonService {
 
     private final LessonMapper lessonMapper;
 
-    public LessonServiceImpl(LessonRepository lessonRepository, LessonMapper lessonMapper) {
+    private final CandidatRepository candidatRepository;
+
+    public LessonServiceImpl(LessonRepository lessonRepository, LessonMapper lessonMapper,CandidatRepository candidatRepository) {
         this.lessonRepository = lessonRepository;
         this.lessonMapper = lessonMapper;
+        this.candidatRepository = candidatRepository;
     }
 
     /**
@@ -100,8 +106,34 @@ public class LessonServiceImpl implements LessonService {
         Lesson lesson = lessonMapper.toEntity(lessonDTO);
         Instant min = lesson.getDateLesson().minusSeconds(2700);
         Instant max = lesson.getDateLesson().plusSeconds(2700);
-        boolean isTimeEnaugh = lessonRepository.countByDateLessonBetween(min, max) == 0;
+        boolean isTimeEnaugh ;
+        TypeLesson typeLesson = lesson.getTypeLesson();
+        Candidat candidat = lesson.getCandidat();
+        if (typeLesson == TypeLesson.CODE) {
+            isTimeEnaugh = lessonRepository.countByDateLessonBetweenAndTypeLessonEquals(min, max,typeLesson) < 4;
+        }else{
+            isTimeEnaugh = lessonRepository.countByDateLessonBetweenAndTypeLessonEquals(min, max,typeLesson) == 0;
+        }
+        
         return isTimeEnaugh;
         
+    }
+
+    /**
+     * check if candidat have one lesson in the same date hour
+     * return false if
+     *   - the lesson already exist for the same candidate in the same hour interval +- 45min
+     */
+    @Override
+    public String checkLessonCandidat(@Valid LessonDTO lesson) {
+
+        Instant min = lesson.getDateLesson().minusSeconds(2700);
+        Instant max = lesson.getDateLesson().plusSeconds(2700);
+        Candidat candidat = candidatRepository.getOne(lesson.getCandidatId());
+        if(lessonRepository.countByDateLessonBetweenAndCandidatEquals(min, max, candidat) != 0){
+            return candidat.getNom()+" "+candidat.getPrenom();
+        }
+
+        return "";
     }
 }

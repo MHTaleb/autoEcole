@@ -26,27 +26,38 @@ export class EcoleUpdatePage {
     pageTitle = element(by.id('jhi-ecole-heading'));
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
-    nomEcoleInput = element(by.id('field_nomEcole'));
-    presidentInput = element(by.id('field_president'));
+    titreEcoleInput = element(by.id('field_titreEcole'));
+    presidentSelect = element(by.id('field_president'));
 
     async getPageTitle() {
         return this.pageTitle.getAttribute('jhiTranslate');
     }
 
-    async setNomEcoleInput(nomEcole) {
-        await this.nomEcoleInput.sendKeys(nomEcole);
+    async setTitreEcoleInput(titreEcole) {
+        await this.titreEcoleInput.sendKeys(titreEcole);
     }
 
-    async getNomEcoleInput() {
-        return this.nomEcoleInput.getAttribute('value');
+    async getTitreEcoleInput() {
+        return this.titreEcoleInput.getAttribute('value');
     }
 
-    async setPresidentInput(president) {
-        await this.presidentInput.sendKeys(president);
+    async presidentSelectLastOption() {
+        await this.presidentSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
     }
 
-    async getPresidentInput() {
-        return this.presidentInput.getAttribute('value');
+    async presidentSelectOption(option) {
+        await this.presidentSelect.sendKeys(option);
+    }
+
+    getPresidentSelect(): ElementFinder {
+        return this.presidentSelect;
+    }
+
+    async getPresidentSelectedOption() {
+        return this.presidentSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

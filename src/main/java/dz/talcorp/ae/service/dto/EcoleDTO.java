@@ -11,11 +11,12 @@ public class EcoleDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String nomEcole;
+    private String titreEcole;
 
-    @NotNull
-    private String president;
 
+    private Long presidentId;
+
+    private String presidentNom;
 
     public Long getId() {
         return id;
@@ -25,20 +26,28 @@ public class EcoleDTO implements Serializable {
         this.id = id;
     }
 
-    public String getNomEcole() {
-        return nomEcole;
+    public String getTitreEcole() {
+        return titreEcole;
     }
 
-    public void setNomEcole(String nomEcole) {
-        this.nomEcole = nomEcole;
+    public void setTitreEcole(String titreEcole) {
+        this.titreEcole = titreEcole;
     }
 
-    public String getPresident() {
-        return president;
+    public Long getPresidentId() {
+        return presidentId;
     }
 
-    public void setPresident(String president) {
-        this.president = president;
+    public void setPresidentId(Long entraineurId) {
+        this.presidentId = entraineurId;
+    }
+
+    public String getPresidentNom() {
+        return presidentNom;
+    }
+
+    public void setPresidentNom(String entraineurNom) {
+        this.presidentNom = entraineurNom;
     }
 
     @Override
@@ -66,8 +75,9 @@ public class EcoleDTO implements Serializable {
     public String toString() {
         return "EcoleDTO{" +
             "id=" + getId() +
-            ", nomEcole='" + getNomEcole() + "'" +
-            ", president='" + getPresident() + "'" +
+            ", titreEcole='" + getTitreEcole() + "'" +
+            ", president=" + getPresidentId() +
+            ", president='" + getPresidentNom() + "'" +
             "}";
     }
 }

@@ -39,6 +39,26 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'examen-info',
                 loadChildren: './examen-info/examen-info.module#AutoEcoleV01ExamenInfoModule'
+            },
+            {
+                path: 'ecole',
+                loadChildren: './ecole/ecole.module#AutoEcoleV01EcoleModule'
+            },
+            {
+                path: 'ecole',
+                loadChildren: './ecole/ecole.module#AutoEcoleV01EcoleModule'
+            },
+            {
+                path: 'ecole',
+                loadChildren: './ecole/ecole.module#AutoEcoleV01EcoleModule'
+            },
+            {
+                path: 'ecole',
+                loadChildren: './ecole/ecole.module#AutoEcoleV01EcoleModule'
+            },
+            {
+                path: 'entraineur',
+                loadChildren: './entraineur/entraineur.module#AutoEcoleV01EntraineurModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

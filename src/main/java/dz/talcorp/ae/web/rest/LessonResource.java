@@ -1,8 +1,11 @@
 package dz.talcorp.ae.web.rest;
+import dz.talcorp.ae.service.CandidatService;
 import dz.talcorp.ae.service.LessonService;
 import dz.talcorp.ae.web.rest.errors.BadRequestAlertException;
+import dz.talcorp.ae.web.rest.errors.CustomParameterizedException;
 import dz.talcorp.ae.web.rest.util.HeaderUtil;
 import dz.talcorp.ae.web.rest.util.PaginationUtil;
+import dz.talcorp.ae.service.dto.CandidatDTO;
 import dz.talcorp.ae.service.dto.LessonDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -17,7 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,15 +38,22 @@ public class LessonResource {
 
     private final LessonService lessonService;
 
-    public LessonResource(LessonService lessonService) {
+    private final CandidatService candidatService;
+
+    public LessonResource(LessonService lessonService, CandidatService candidatService) {
         this.lessonService = lessonService;
+        this.candidatService = candidatService;
     }
 
     /**
-     * POST  /lessons : Create a new lesson of 45 min.
+     * POST /lessons : Create a new lesson of 45 min.
+     * 
+     * if lesson is of type creno or circulation the car is mandatory
      *
      * @param lessonDTO the lessonDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new lessonDTO, or with status 400 (Bad Request) if the lesson has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the new
+     *         lessonDTO, or with status 400 (Bad Request) if the lesson has already
+     *         an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/lessons")
@@ -51,8 +62,13 @@ public class LessonResource {
         if (lessonDTO.getId() != null) {
             throw new BadRequestAlertException("A new lesson cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if(!lessonService.checkLessonTime(lessonDTO)){
-            throw new BadRequestAlertException("Another lesson exists with start time greater or less 45 min than this lesson ","","");
+        if (!lessonService.checkLessonTime(lessonDTO)) {
+            String date = LocalDateTime.ofInstant(lessonDTO.getDateLesson(), ZoneOffset.systemDefault()).toString();
+            throw new CustomParameterizedException("error.lesson.EK_L_C01", date);
+        }
+        String checkLessonCandidat = lessonService.checkLessonCandidat(lessonDTO);
+        if (!checkLessonCandidat.isEmpty()) {
+            throw new CustomParameterizedException("error.lesson.EK_LC02", checkLessonCandidat);
         }
         LessonDTO result = lessonService.save(lessonDTO);
         return ResponseEntity.created(new URI("/api/lessons/" + result.getId()))
@@ -74,6 +90,14 @@ public class LessonResource {
         log.debug("REST request to update Lesson : {}", lessonDTO);
         if (lessonDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!lessonService.checkLessonTime(lessonDTO)) {
+            String date = LocalDateTime.ofInstant(lessonDTO.getDateLesson(), ZoneOffset.systemDefault()).toString();
+            throw new CustomParameterizedException("error.lesson.EK_L_C01", date);
+        }
+        String checkLessonCandidat = lessonService.checkLessonCandidat(lessonDTO);
+        if (!checkLessonCandidat.isEmpty()) {
+            throw new CustomParameterizedException("error.lesson.EK_LC02", checkLessonCandidat);
         }
         LessonDTO result = lessonService.save(lessonDTO);
         return ResponseEntity.ok()
