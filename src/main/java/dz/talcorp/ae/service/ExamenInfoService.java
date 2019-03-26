@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 /**
  * Service Interface for managing ExamenInfo.
  */
@@ -43,4 +45,8 @@ public interface ExamenInfoService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+	String checkBeforeSave(@Valid ExamenInfoDTO examenInfoDTO);
+
+	String checkBeforeDelete(Long id);
 }

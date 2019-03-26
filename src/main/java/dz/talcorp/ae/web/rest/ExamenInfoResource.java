@@ -51,6 +51,10 @@ public class ExamenInfoResource {
         if (examenInfoDTO.getId() != null) {
             throw new BadRequestAlertException("A new examenInfo cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        String errorKey="";
+        if((errorKey = examenInfoService.checkBeforeSave(examenInfoDTO)).isEmpty()){
+            throw new BadRequestAlertException("add exam entry constraint violation code : "+errorKey, ENTITY_NAME, errorKey);
+        }
         ExamenInfoDTO result = examenInfoService.save(examenInfoDTO);
         return ResponseEntity.created(new URI("/api/examen-infos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -71,6 +75,10 @@ public class ExamenInfoResource {
         log.debug("REST request to update ExamenInfo : {}", examenInfoDTO);
         if (examenInfoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        String errorKey="";
+        if((errorKey = examenInfoService.checkBeforeSave(examenInfoDTO)).isEmpty()){
+            throw new BadRequestAlertException("add exam entry constraint violation code : "+errorKey, ENTITY_NAME, errorKey);
         }
         ExamenInfoDTO result = examenInfoService.save(examenInfoDTO);
         return ResponseEntity.ok()
@@ -114,6 +122,10 @@ public class ExamenInfoResource {
     @DeleteMapping("/examen-infos/{id}")
     public ResponseEntity<Void> deleteExamenInfo(@PathVariable Long id) {
         log.debug("REST request to delete ExamenInfo : {}", id);
+        String errorKey="";
+        if((errorKey = examenInfoService.checkBeforeDelete(id)).isEmpty()){
+            throw new BadRequestAlertException("add exam entry constraint violation code : "+errorKey, ENTITY_NAME, errorKey);
+        }
         examenInfoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
