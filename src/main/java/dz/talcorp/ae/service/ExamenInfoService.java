@@ -49,4 +49,6 @@ public interface ExamenInfoService {
 	String checkBeforeSave(@Valid ExamenInfoDTO examenInfoDTO);
 
 	String checkBeforeDelete(Long id);
+
+	String checkBeforeEdit(long id);
 }

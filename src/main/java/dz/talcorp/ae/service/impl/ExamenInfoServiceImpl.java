@@ -1,5 +1,8 @@
 package dz.talcorp.ae.service.impl;
 
+import static java.time.temporal.ChronoUnit.YEARS;
+
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -54,6 +57,15 @@ public class ExamenInfoServiceImpl implements ExamenInfoService {
 
     private static final String EK_S_02CI = "examen_info.EK_S_02CI"; // Inscription examen impossible: ce candidat a
                                                                      // deja reussi l examen de circulation
+
+    private static final String EK_D_01EE = "examen_info.EK_D_01EE"; //Supression examen impossible : ce candidat a deja
+                                                                     // un examen planifier en cours
+
+    private static final String EK_D_02EXP = "examen_info.EK_D_02EXP"; // Supression examen impossible : ce candidat a passé
+                                                                       // qui date moins d une année. inscription toujours valide
+
+    private static final String EK_E_01NS = "examen_info.EK_E_01NS"; // un examen dont le delait depassé et valider ne 
+                                                                     // peut etre refait en etat en cours
 
     // aucune erreur detecter
     private final String NO_ERROR = "";
@@ -135,7 +147,7 @@ public class ExamenInfoServiceImpl implements ExamenInfoService {
 
         // erreur type examen invalide
         default:
-            log.error("ExamenInfoDto request param error in type of exam"+ EK_DATA_TE);
+            log.error("ExamenInfoDto request param error in type of exam" + EK_DATA_TE);
             return EK_DATA_TE;
 
         }
@@ -289,24 +301,52 @@ public class ExamenInfoServiceImpl implements ExamenInfoService {
     /**
      * we cant remove an exam before checking all the following criterias:
      * 
-     * before examination day
-     * ----------------------
+     * - error 1  : the exam is not a planified 
      * 
-     * if the day of the exam is not yet reached or passed by:
-     *  
-     *  - you can only remove planified exams ==> section A
-     * 
-     *  - you can only remove exam entry only if the last exam for this user is one year late (expired user subscription) ==> section B
-     * 
-     * if the exam info entry's day exam have been passed (cuurentDay > entryExamDay)
-     * 
-     *  - you can remove only if the candidate last exam is one year ago (lastExamDate - currentDate >= 1 year) section C
+     *   - error 1.1 : the candidate have his last exam less than a year : can't remove active candidat entries
      * 
      * @param id id of deleted exam entry
-     * @return the error code if there is any logic violation, empty string if it is fine to delete
+     * @return the error code if there is any logic violation, empty string if it is
+     *         fine to delete
      */
     @Override
     public String checkBeforeDelete(Long id) {
+        // get the exam to be inspected
+        Optional<ExamenInfo> concernedDeleteExam = examenInfoRepository.findById(id);
+        if (concernedDeleteExam.isPresent()) {
+            //  if the exam is not a planified exam we should rise an error code
+            ExamenInfo deletableExam = concernedDeleteExam.get();
+            if (deletableExam.getEtat() != EtatExamen.ENCOURS) {
+                // other exam kinds
+
+                final long candidatDleteExamId = deletableExam.getCandidat().getId();
+                // get last candidat registred exam
+                Optional<ExamenInfo> lastExam = examenInfoRepository
+                        .findFirstByCandidat_IdOrderByExamen_DateExamenDesc(candidatDleteExamId);
+
+                if(lastExam.isPresent()){
+                    ExamenInfo examenInfo = lastExam.get();
+                    if(examenInfo.getEtat() == EtatExamen.ENCOURS){
+                        log.debug("can't remove exam entry, Exam schuddled violation : this candidate have a schudled exam "+EK_D_01EE);
+                        return EK_D_01EE;
+                    }else{
+                        return (YEARS.between(examenInfo.getExamen().getDateExamen(), LocalDate.now()) < 1) ? EK_D_02EXP : NO_ERROR;
+                    }
+                }
+                
+            }
+
+        }
+        return NO_ERROR;
+    }
+
+    /**
+     * un examen qui a ete valider ne peut etre changer a un examen en cours
+     */
+    @Override
+    public String checkBeforeEdit(long id) {
+        ExamenInfo exam = examenInfoRepository.getOne(id);
+        if(exam.getEtat() != EtatExamen.ENCOURS && examenInfoDTO.getEtat() == EtatExamen.ENCOURS) return EK_E_01NS;
         return NO_ERROR;
     }
 }

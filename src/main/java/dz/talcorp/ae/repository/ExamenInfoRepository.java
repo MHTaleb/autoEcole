@@ -4,6 +4,7 @@ import dz.talcorp.ae.domain.ExamenInfo;
 import dz.talcorp.ae.domain.enumeration.EtatExamen;
 import dz.talcorp.ae.domain.enumeration.TypeExamen;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.*;
@@ -21,5 +22,9 @@ public interface ExamenInfoRepository extends JpaRepository<ExamenInfo, Long> {
 
 	Optional<ExamenInfo> findFirstByCandidatIdAndEtat(long candidatId, EtatExamen etatExamen);
 
-	Optional<ExamenInfo> findFirstByCandidatIdAndEtatAndType(long candidatId, EtatExamen reussi, TypeExamen code);
+    Optional<ExamenInfo> findFirstByCandidatIdAndEtatAndType(long candidatId, EtatExamen reussi, TypeExamen code);
+    
+    List<ExamenInfo> findFirst2ByCandidat_IdOrderByExamen_DateExamenDesc(long id);
+    
+    Optional<ExamenInfo> findFirstByCandidat_IdOrderByExamen_DateExamenDesc(long id);
 }
