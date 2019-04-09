@@ -121,7 +121,7 @@ public class EntraineurResource {
     public ResponseEntity<Void> deleteEntraineur(@PathVariable Long id) {
         log.debug("REST request to delete Entraineur : {}", id);
         String errorKey = "";
-        if((errorKey = entraineurService.checkBeforeDelete(id)).isEmpty()){
+        if(!(errorKey = entraineurService.checkBeforeDelete(id)).isEmpty()){
             throw new BadRequestAlertException("can't delete trainer: delete constraint violation "+errorKey, ENTITY_NAME, errorKey);
         }
         entraineurService.delete(id);

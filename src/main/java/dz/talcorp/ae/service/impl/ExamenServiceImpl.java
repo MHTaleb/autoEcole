@@ -15,12 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 /**
  * Service Implementation for managing Examen.
  */
 @Service
 @Transactional
 public class ExamenServiceImpl implements ExamenService {
+
+    private static final String NO_ERROR = "";
 
     private final Logger log = LoggerFactory.getLogger(ExamenServiceImpl.class);
 
@@ -57,10 +61,8 @@ public class ExamenServiceImpl implements ExamenService {
     @Transactional(readOnly = true)
     public Page<ExamenDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Examen");
-        return examenRepository.findAll(pageable)
-            .map(examenMapper::toDto);
+        return examenRepository.findAll(pageable).map(examenMapper::toDto);
     }
-
 
     /**
      * Get one examen by id.
@@ -72,8 +74,7 @@ public class ExamenServiceImpl implements ExamenService {
     @Transactional(readOnly = true)
     public Optional<ExamenDTO> findOne(Long id) {
         log.debug("Request to get Examen : {}", id);
-        return examenRepository.findById(id)
-            .map(examenMapper::toDto);
+        return examenRepository.findById(id).map(examenMapper::toDto);
     }
 
     /**
@@ -83,6 +84,15 @@ public class ExamenServiceImpl implements ExamenService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Examen : {}", id);        examenRepository.deleteById(id);
+        log.debug("Request to delete Examen : {}", id);
+        examenRepository.deleteById(id);
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public String checkBeforeSave(@Valid ExamenDTO examenDTO) {
+        return NO_ERROR;
     }
 }

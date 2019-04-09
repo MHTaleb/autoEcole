@@ -54,7 +54,7 @@ public class CandidatResource {
         /**
          * checking unique nid
          */
-        if(candidatService.checkNID(candidatDTO.getNid())){
+        if(candidatService.checkNID(candidatDTO.getNid(),candidatDTO.getId())){
             throw new CustomParameterizedException("candidat.EK_CA_01", candidatDTO.getNid());
         }
         /**
@@ -87,7 +87,7 @@ public class CandidatResource {
         /**
          * checking unique nid
          */
-        if(candidatService.checkNID(candidatDTO.getNid())){
+        if(candidatService.checkNID(candidatDTO.getNid(),candidatDTO.getId())){
             throw new CustomParameterizedException("candidat.EK_CA_01", candidatDTO.getNid());
         }
         /**

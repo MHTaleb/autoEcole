@@ -1,5 +1,6 @@
 package dz.talcorp.ae.service;
 
+import dz.talcorp.ae.domain.enumeration.EtatExamen;
 import dz.talcorp.ae.service.dto.ExamenInfoDTO;
 
 import org.springframework.data.domain.Page;
@@ -50,5 +51,5 @@ public interface ExamenInfoService {
 
 	String checkBeforeDelete(Long id);
 
-	String checkBeforeEdit(long id);
+	String checkBeforeEdit(long id,EtatExamen etat);
 }

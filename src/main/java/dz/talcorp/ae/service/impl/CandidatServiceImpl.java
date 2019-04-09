@@ -102,9 +102,9 @@ public class CandidatServiceImpl implements CandidatService {
      * @return true if not unique
      */
     @Override
-    public boolean checkNID(String nid) {
+    public boolean checkNID(String nid, long cid) {
         log.debug("Request to check if candidat NID is fine (unique)");
-        return candidatRepository.findFirstByNid(nid).isPresent();
+        return candidatRepository.findFirstByNidAndIdNot(nid,cid).isPresent();
     }
 
     /**

@@ -50,7 +50,7 @@ public interface CandidatService {
     /**
      * check NID unicity
      */
-	boolean checkNID(String nid);
+	boolean checkNID(String nid, long cid);
 
     /**
      * check age maturity

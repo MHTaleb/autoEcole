@@ -6,6 +6,7 @@ import dz.talcorp.ae.domain.Lesson;
 import dz.talcorp.ae.domain.Candidat;
 import dz.talcorp.ae.domain.Entraineur;
 import dz.talcorp.ae.repository.LessonRepository;
+import dz.talcorp.ae.service.CandidatService;
 import dz.talcorp.ae.service.LessonService;
 import dz.talcorp.ae.service.dto.LessonDTO;
 import dz.talcorp.ae.service.mapper.LessonMapper;
@@ -32,7 +33,6 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-
 import static dz.talcorp.ae.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -41,6 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import dz.talcorp.ae.domain.enumeration.TypeLesson;
 import dz.talcorp.ae.domain.enumeration.EtatLesson;
+
 /**
  * Test class for the LessonResource REST controller.
  *
@@ -72,6 +73,9 @@ public class LessonResourceIntTest {
     private LessonService lessonService;
 
     @Autowired
+    private CandidatService candidatService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -90,10 +94,11 @@ public class LessonResourceIntTest {
 
     private Lesson lesson;
 
+    
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LessonResource lessonResource = new LessonResource(lessonService);
+        final LessonResource lessonResource = new LessonResource(lessonService,candidatService);
         this.restLessonMockMvc = MockMvcBuilders.standaloneSetup(lessonResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -344,9 +344,9 @@ public class ExamenInfoServiceImpl implements ExamenInfoService {
      * un examen qui a ete valider ne peut etre changer a un examen en cours
      */
     @Override
-    public String checkBeforeEdit(long id) {
+    public String checkBeforeEdit(long id,EtatExamen etat) {
         ExamenInfo exam = examenInfoRepository.getOne(id);
-        if(exam.getEtat() != EtatExamen.ENCOURS && examenInfoDTO.getEtat() == EtatExamen.ENCOURS) return EK_E_01NS;
+        if(exam.getEtat() != EtatExamen.ENCOURS && etat == EtatExamen.ENCOURS) return EK_E_01NS;
         return NO_ERROR;
     }
 }

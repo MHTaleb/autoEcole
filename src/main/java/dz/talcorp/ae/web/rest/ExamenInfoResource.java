@@ -88,7 +88,7 @@ public class ExamenInfoResource {
         if((errorKey = examenInfoService.checkBeforeSave(examenInfoDTO)).isEmpty()){
             throw new BadRequestAlertException("add exam entry constraint violation code : "+errorKey, ENTITY_NAME, errorKey);
         }
-        if((errorKey = examenInfoService.checkBeforeEdit(examenInfoDTO.getId())).isEmpty()){
+        if((errorKey = examenInfoService.checkBeforeEdit(examenInfoDTO.getId(),examenInfoDTO.getEtat())).isEmpty()){
             throw new BadRequestAlertException("add exam entry constraint violation code : "+errorKey, ENTITY_NAME, errorKey);
         }
         ExamenInfoDTO result = examenInfoService.save(examenInfoDTO);

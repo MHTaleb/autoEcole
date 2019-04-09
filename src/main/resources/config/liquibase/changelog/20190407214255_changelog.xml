@@ -1,0 +1,246 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="win 10 (generated)" id="1554673434660-1">
+        <createTable tableName="candidat">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="candidatPK"/>
+            </column>
+            <column name="adresse" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_inscription" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_naissance" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lieu_naissance" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mere" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nationalite" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nid" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nom" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pere" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="LONGBLOB"/>
+            <column name="photo_content_type" type="VARCHAR(255)"/>
+            <column name="prenom" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telephone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-2">
+        <createTable tableName="car">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="carPK"/>
+            </column>
+            <column name="marque" type="VARCHAR(255)"/>
+            <column name="matricule" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-3">
+        <createTable tableName="ecole">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="ecolePK"/>
+            </column>
+            <column name="titre_ecole" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="president_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-4">
+        <createTable tableName="entraineur">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="entraineurPK"/>
+            </column>
+            <column name="nom" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="LONGBLOB"/>
+            <column name="photo_content_type" type="VARCHAR(255)"/>
+            <column name="prenom" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telephone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="compte_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-5">
+        <createTable tableName="examen">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="examenPK"/>
+            </column>
+            <column name="date_examen" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="examinateur_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voiture_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-6">
+        <createTable tableName="examen_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="examen_infoPK"/>
+            </column>
+            <column name="etat" type="VARCHAR(255)"/>
+            <column name="jhi_type" type="VARCHAR(255)"/>
+            <column name="candidat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="examen_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-7">
+        <createTable tableName="examinateur">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="examinateurPK"/>
+            </column>
+            <column name="nom" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prenom" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telephone" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-8">
+        <createTable tableName="lesson">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="lessonPK"/>
+            </column>
+            <column name="date_lesson" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="etat_lesson" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="observation" type="LONGTEXT"/>
+            <column name="type_lesson" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="candidat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entraineur_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voiture_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-9">
+        <createTable tableName="virement">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="virementPK"/>
+            </column>
+            <column name="date_virement" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="montant" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="candidat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-10">
+        <addUniqueConstraint columnNames="nid" constraintName="UC_CANDIDATNID_COL" tableName="candidat"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-11">
+        <addUniqueConstraint columnNames="matricule" constraintName="UC_CARMATRICULE_COL" tableName="car"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-12">
+        <addUniqueConstraint columnNames="titre_ecole" constraintName="UC_ECOLETITRE_ECOLE_COL" tableName="ecole"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-13">
+        <addUniqueConstraint columnNames="compte_id" constraintName="UC_ENTRAINEURCOMPTE_ID_COL" tableName="entraineur"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-14">
+        <addUniqueConstraint columnNames="telephone" constraintName="UC_ENTRAINEURTELEPHONE_COL" tableName="entraineur"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-15">
+        <addForeignKeyConstraint baseColumnNames="compte_id" baseTableName="entraineur" constraintName="FK3chnk50rgvdbrudjrsnysuw73" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-16">
+        <addForeignKeyConstraint baseColumnNames="entraineur_id" baseTableName="lesson" constraintName="FK5m4nbp7j6miur6bvtsrdnv1mt" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="entraineur"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-17">
+        <addForeignKeyConstraint baseColumnNames="examinateur_id" baseTableName="examen" constraintName="FK61v8ont8tc523327ce14j9ef4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="examinateur"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-18">
+        <addForeignKeyConstraint baseColumnNames="voiture_id" baseTableName="lesson" constraintName="FK9jyqdykbwnaoccjbakvqkvxev" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-19">
+        <addForeignKeyConstraint baseColumnNames="candidat_id" baseTableName="lesson" constraintName="FKd38hskb9efh7tun5lkdma2y8w" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="candidat"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-20">
+        <addForeignKeyConstraint baseColumnNames="candidat_id" baseTableName="virement" constraintName="FKfa63jve0fc9rs1xrm55jq4ns4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="candidat"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-21">
+        <addForeignKeyConstraint baseColumnNames="candidat_id" baseTableName="examen_info" constraintName="FKkcd03ujwo85xix0s8in1ksf5n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="candidat"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-22">
+        <addForeignKeyConstraint baseColumnNames="voiture_id" baseTableName="examen" constraintName="FKkng9ry44h0meigyk8mw784yq4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-23">
+        <addForeignKeyConstraint baseColumnNames="president_id" baseTableName="ecole" constraintName="FKnfblpe9vcuylhorof696twbe0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="entraineur"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-24">
+        <addForeignKeyConstraint baseColumnNames="examen_id" baseTableName="examen_info" constraintName="FKse5n8c35g5w8ut4e3tvbdaj2n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="examen"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-25">
+        <dropDefaultValue columnDataType="varchar(20)" columnName="activation_key" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-26">
+        <dropDefaultValue columnDataType="varchar(254)" columnName="email" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-27">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="event_type" tableName="jhi_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-28">
+        <dropDefaultValue columnDataType="varchar(50)" columnName="first_name" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-29">
+        <dropDefaultValue columnDataType="varchar(256)" columnName="image_url" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-30">
+        <dropDefaultValue columnDataType="varchar(6)" columnName="lang_key" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-31">
+        <dropDefaultValue columnDataType="varchar(50)" columnName="last_modified_by" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-32">
+        <dropDefaultValue columnDataType="varchar(50)" columnName="last_name" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-33">
+        <dropDefaultValue columnDataType="varchar(20)" columnName="reset_key" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="win 10 (generated)" id="1554673434660-34">
+        <dropDefaultValue columnDataType="varchar(255)" columnName="value" tableName="jhi_persistent_audit_evt_data"/>
+    </changeSet>
+</databaseChangeLog>

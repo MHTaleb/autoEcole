@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface CandidatRepository extends JpaRepository<Candidat, Long> {
-    Optional<Candidat> findFirstByNid(String nid);
+    Optional<Candidat> findFirstByNidAndIdNot(String nid, long id);
 }

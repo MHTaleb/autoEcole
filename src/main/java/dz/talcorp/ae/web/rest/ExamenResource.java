@@ -51,6 +51,10 @@ public class ExamenResource {
         if (examenDTO.getId() != null) {
             throw new BadRequestAlertException("A new examen cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        String errorKey="";
+        if(!(errorKey = examenService.checkBeforeSave(examenDTO)).isEmpty()){
+            throw new BadRequestAlertException("add exam entry constraint violation code : "+errorKey, ENTITY_NAME, errorKey);
+        }
         ExamenDTO result = examenService.save(examenDTO);
         return ResponseEntity.created(new URI("/api/examen/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
