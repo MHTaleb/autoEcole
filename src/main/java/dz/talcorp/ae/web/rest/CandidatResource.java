@@ -54,7 +54,7 @@ public class CandidatResource {
         /**
          * checking unique nid
          */
-        if(candidatService.checkNID(candidatDTO.getNid(),candidatDTO.getId())){
+        if(candidatService.checkNID(candidatDTO.getNid(),-1)){
             throw new CustomParameterizedException("candidat.EK_CA_01", candidatDTO.getNid());
         }
         /**

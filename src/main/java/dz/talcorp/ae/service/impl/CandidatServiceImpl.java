@@ -112,7 +112,7 @@ public class CandidatServiceImpl implements CandidatService {
      */
     @Override
     public boolean checkCandidatMature(LocalDate birthDate) {
-        return YEARS.between(birthDate, LocalDate.now()) >= 17;
+        return YEARS.between(birthDate, LocalDate.now()) <= 17;
     }
 
     /**
