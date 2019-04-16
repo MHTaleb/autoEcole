@@ -15,6 +15,7 @@ import { AutoEcoleV01SharedModule } from 'app/shared';
 import { AutoEcoleV01CoreModule } from 'app/core';
 import { AutoEcoleV01AppRoutingModule } from './app-routing.module';
 import { AutoEcoleV01HomeModule } from './home/home.module';
+import { LayoutModule } from '@angular/cdk/layout'; // layout module import after installing using npm
 import { AutoEcoleV01AccountModule } from './account/account.module';
 import { AutoEcoleV01EntityModule } from './entities/entity.module';
 import * as moment from 'moment';
@@ -32,6 +33,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
             i18nEnabled: true,
             defaultI18nLang: 'ar-ly'
         }),
+        LayoutModule, // layaout module of angular material used to handl breakpoints
         AutoEcoleV01SharedModule.forRoot(),
         AutoEcoleV01CoreModule,
         AutoEcoleV01HomeModule,

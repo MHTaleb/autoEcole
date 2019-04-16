@@ -3,8 +3,8 @@
         "candidat": {
             "home": {
                 "title": "Candidats",
-                "createLabel": "Créer un nouveau Candidat",
-                "createOrEditLabel": "Créer ou éditer un Candidat"
+                "createLabel": "Ajouter",
+                "createOrEditLabel": "Editer"
             },
             "created": "Un nouveau Candidat a été créé avec l'identifiant {{ param }}",
             "updated": "Le Candidat avec l'identifiant {{ param }} a été mis à jour",

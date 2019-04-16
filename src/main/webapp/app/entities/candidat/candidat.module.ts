@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 
+import { NgPipesModule } from 'ngx-pipes';
+
 import { AutoEcoleV01SharedModule } from 'app/shared';
 import {
     CandidatComponent,
@@ -17,7 +19,7 @@ import {
 const ENTITY_STATES = [...candidatRoute, ...candidatPopupRoute];
 
 @NgModule({
-    imports: [AutoEcoleV01SharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [AutoEcoleV01SharedModule, RouterModule.forChild(ENTITY_STATES), NgPipesModule],
     declarations: [
         CandidatComponent,
         CandidatDetailComponent,

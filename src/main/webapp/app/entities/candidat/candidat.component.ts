@@ -11,6 +11,7 @@ import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { CandidatService } from './candidat.service';
 
+import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 @Component({
     selector: 'jhi-candidat',
     templateUrl: './candidat.component.html'
@@ -29,6 +30,10 @@ export class CandidatComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    searchValue: any;
+    small: any;
+    medium: any;
+    large: any;
 
     constructor(
         protected candidatService: CandidatService,
@@ -38,7 +43,8 @@ export class CandidatComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        public breakpointObserver: BreakpointObserver
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -98,6 +104,37 @@ export class CandidatComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInCandidats();
+        /*
+        this.breakpointObserver
+            .observe(['(max-width: 425px)'])
+            .subscribe((state: BreakpointState) => {
+                if (state.matches) {
+                    this.small = true;
+                    this.medium = false;
+                    this.large = false;
+                }
+                console.log('Small screen event');
+            });
+        this.breakpointObserver
+            .observe(['(max-width: 1025px)', '(min-width: 426px)'])
+            .subscribe((state: BreakpointState) => {
+                if (state.matches) {
+                    this.small = false;
+                    this.medium = true;
+                    this.large = false;
+                }
+                console.log('Medium screen event');
+            });
+        this.breakpointObserver
+            .observe(['(min-width: 1025px)'])
+            .subscribe((state: BreakpointState) => {
+                if (state.matches) {
+                    this.small = false;
+                    this.medium = false;
+                    this.large = true;
+                }
+                console.log('Large screen event');
+            });*/
     }
 
     ngOnDestroy() {
@@ -126,6 +163,15 @@ export class CandidatComponent implements OnInit, OnDestroy {
             result.push('id');
         }
         return result;
+    }
+
+    cardsStyleClasses() {
+        return {
+            'mb-4': true,
+            'col-sm-12': this.small,
+            'col-sm-4': this.medium,
+            'col-sm-3': this.large
+        };
     }
 
     protected paginateCandidats(data: ICandidat[], headers: HttpHeaders) {

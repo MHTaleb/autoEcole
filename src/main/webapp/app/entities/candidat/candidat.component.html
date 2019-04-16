@@ -1,38 +1,90 @@
-<div>
+<div class="container-fluid">
     <h2 id="page-heading">
         <span jhiTranslate="autoEcoleV01App.candidat.home.title">Candidats</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-candidat"
-            [routerLink]="['/candidat/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span jhiTranslate="autoEcoleV01App.candidat.home.createLabel">
-                Create new Candidat
-            </span>
-        </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br />
-    <div >
-        <div  class="row">
-            <div  *ngFor="let candidat of candidats;trackBy: trackId" class="col-sm-3 mb-4">
-                <div class="card" style="min-height: 100%;">
-                    <a *ngIf="candidat.photo" (click)="openFile(candidat.photoContentType, candidat.photo)">
-                        <img [src]="'data:' + candidat.photoContentType + ';base64,' + candidat.photo"
-                            style="max-height: 400px; min-height: 400px; min-width: 80%; max-width: 80%;margin-left: 10%;" class="card-img-top" alt="candidat image" />
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+        <div class="row mb-4">
+            <div class="col-12 col-md-9 col-lg-9">
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-6 col-xl-7">
+                        <input type="search" class="form-control col-md-12 col-lg-12  " autocomplete="off"
+                            placeholder="{{'autoEcoleV01App.constants.search' | translate}}"
+                            [(ngModel)]="searchValue" />
+                    </div>
+                    <div class="col-12 col-md-8 col-lg-6  col-xl-5">
+                        <button class="btn  float-left btn-outline-secondary col-md-4 col-lg-4  " jhiSortBy="nom">
+                            <span jhiTranslate="autoEcoleV01App.candidat.nom">Nom</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </button>
+                        <button class="btn  float-left btn-outline-secondary col-md-4 col-lg-4" jhiSortBy="prenom">
+                            <span jhiTranslate="autoEcoleV01App.candidat.prenom">Prenom</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </button>
+                        <button class="btn  float-left btn-outline-secondary col-md-4 col-lg-4  " jhiSortBy="nid">
+                            <span jhiTranslate="autoEcoleV01App.candidat.nid">Nid</span>
+                            <fa-icon [icon]="'sor   t'"></fa-icon>
+                        </button>
                     </div>
                 </div>
             </div>
-           
+            <div class="col-12 col-md-3 col-lg-3 ">
+                <button id="jh-create-entity"
+                    class="btn btn-primary  float-right jh-create-entity create-candidat col-lg-12   "
+                    [routerLink]="['/candidat/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span jhiTranslate="autoEcoleV01App.candidat.home.createLabel">
+                        Create new Candidat
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let candidat of (candidats | filterBy: ['nom','prenom','mere','pere','telephone','nid']: searchValue) ;trackBy: trackId"
+                class="col-xl-3 col-lg-4 col-md-6 col-12 col-sm-6">
+                <div class="card card-focusable" style="min-height: 100%;">
+                    <a *ngIf="candidat.photo" (click)="openFile(candidat.photoContentType, candidat.photo)">
+                        <img [src]="'data:' + candidat.photoContentType + ';base64,' + candidat.photo"
+                            style="max-height: 360px;  max-width: 100%;" class="card-img-top " alt="candidat image" />
+                    </a>
+                    <div class="card-body ">
+                        <h4 class="card-title">{{candidat.nom}} {{candidat.prenom}}</h4>
+                        <p class="card-text ml-1">
+                            <span jhiTranslate="autoEcoleV01App.candidat.dateInscription">Date Inscription </span>:
+                            {{candidat.dateInscription | date:'mediumDate'}}
+                            <br>
+                            <span jhiTranslate="autoEcoleV01App.candidat.telephone">Téléphone </span>:
+                            {{candidat.telephone}}
+                        </p>
+                        <div class="text-right">
+                            <div class="btn-group btn-group-sm flex-btn-group-container">
+                                <button type="submit" [routerLink]="['/candidat', candidat.id, 'view' ]"
+                                    class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                </button>
+                                <button type="submit" [routerLink]="['/candidat', candidat.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button type="submit"
+                                    [routerLink]="['/', 'candidat', { outlets: { popup: candidat.id + '/delete'} }]"
+                                    replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
-    <div class="table-responsive" *ngIf="candidats">
+    <div class="table-responsive d-none hidden" *ngIf="candidats">
         <table class="table table-striped">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -83,7 +135,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let candidat of candidats ;trackBy: trackId">
+                <tr *ngFor="let candidat of candidats |filter:searchValue ;trackBy: trackId">
                     <td><a [routerLink]="['/candidat', candidat.id, 'view' ]">{{candidat.id}}</a></td>
                     <td>
                         <a *ngIf="candidat.photo" (click)="openFile(candidat.photoContentType, candidat.photo)">
